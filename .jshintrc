@@ -1,0 +1,10 @@
+{
+  "esversion": 6,
+  "node": true,
+  "browser": true,
+  "jquery": true,
+  "globals": {
+    "angular": true,
+    "_": true
+  }
+}

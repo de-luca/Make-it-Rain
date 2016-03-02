@@ -1,0 +1,154 @@
+<!-- Delete Modal -->
+<script type="text/ng-template" id="deleteModal.html">
+  <div class="modal-header">
+    <p class="modal-title lead">
+      {{'ACCOUNT.MODAL.DELETE.TITLE'|translate}}
+    </p>
+  </div>
+  <div class="modal-body">
+    <p>
+      {{'ACCOUNT.MODAL.DELETE.BODY'|translate}}
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-default btn-sm" type="button" ng-click="cancel()">{{'HISTORY.MODAL.DELETE.CANCEL'|translate}}</button>
+    <button class="btn btn-primary btn-sm" type="button" ng-click="ok()">{{'HISTORY.MODAL.DELETE.OK'|translate}}</button>
+  </div>
+</script>
+<!-- !Delete Modal -->
+
+<div class="row">
+  <div class="col-xs-3">
+    <a class="btn btn-default btn-block" href="#" role="button"><i class="fa fa-fw fa-arrow-left"></i> Back</a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <h3>
+      {{'ACCOUNT.TITLE'|translate}} <strong>{{data.acc.name}}</strong>
+      <small>{{'ACCOUNT.BALANCE'|translate}}: <span ng-class="{'text-success': data.balance > 0, 'text-danger': data.balance < 0}"><strong>{{data.acc.balance|currency:''}} €</strong></span></small>
+    </h3>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-group btn-group btn-group-justified">
+      <label class="btn btn-default" ng-model="show" uib-btn-radio="'history'">{{'ACCOUNT.BUTTON_HISTORY'|translate}}</label>
+      <label class="btn btn-default" ng-model="show" uib-btn-radio="'visual'">{{'ACCOUNT.BUTTON_CHARTS'|translate}}</label>
+    </div>
+  </div>
+</div>
+
+<div class="row" ng-if="show === 'history'">
+  <div class="col-md-12">
+    <table class="table table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>{{'ACCOUNT.DATE'|translate}}</th>
+          <th class="text-center">{{'ACCOUNT.AMOUNT'|translate}}</th>
+          <th class="text-center">{{'ACCOUNT.TYPE'|translate}}</th>
+          <th class="text-center">{{'ACCOUNT.INFOS'|translate}}</th>
+          <th class="text-right">{{'ACCOUNT.ACTIONS'|translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="active">
+          <td>
+            <input type="text" ng-model="account.name" class="input-sm form-control" placeholder="Date" required>
+          </td>
+          <td>
+            <input type="text" ng-model="account.name" class="input-sm form-control" placeholder="Amount" required>
+          </td>
+          <td>
+            <input type="text" ng-model="selected1" uib-typeahead="post for post in data.posts | filter:$viewValue | limitTo:8" class="input-sm form-control" placeholder="Post">
+          </td>
+          <td>
+            <input type="text" ng-model="selected2" uib-typeahead="comp for comp in data.comps | filter:$viewValue | limitTo:8" class="input-sm form-control" placeholder="Company">
+          </td>
+          <td>
+            <button type="button" ng-disabled="!account.init || !account.name" ng-click="insert()" class="btn btn-default btn-block btn-sm">{{'ACCOUNTS.FORM.SUBMIT'|translate}}</button>
+          </td>
+        </tr>
+        <tr ng-repeat="move in data.acc.moves | orderBy:predicate:reverse"
+            ng-class="{'info': move._type === 'init', 'warning': move._type === 'transfer', 'success': move._type === 'income', 'danger': move._type === 'outcome'}">
+          <td>{{move.date|date:'dd-MM-yyyy'}}</td>
+          <td class="text-center">{{move.amount|currency:''}} €</td>
+          <td class="text-center">{{move.post}}</td>
+          <td class="text-center">{{move.company}}</td>
+          <td class="text-right">
+            <button type="button" ng-click="delete(move._id)" class="btn btn-danger btn-block btn-xs">{{'ACCOUNT.DELETE'|translate}}</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div ng-if="show === 'visual'">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Evolution du solde (en €)</h3>
+        </div>
+        <div class="panel-body">
+          <canvas height="80" id="line" class="chart chart-line" chart-data="data.visuals.evo.data"
+            chart-labels="data.visuals.evo.labels" chart-legend="true" chart-series="data.visuals.evo.series" chart-colours="data.visuals.colours">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Répartitions des dépenses par postes</h3>
+      </div>
+      <div class="panel-body">
+        <canvas id="doughnut" class="chart chart-doughnut" chart-data="data.visuals.repOutPurp.data" chart-labels="data.visuals.repOutPurp.labels">
+        </canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Répartitions des recettes par postes</h3>
+      </div>
+      <div class="panel-body">
+        <canvas id="doughnut" class="chart chart-doughnut" chart-data="data.visuals.repInPurp.data" chart-labels="data.visuals.repInPurp.labels">
+        </canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Répartitions des dépenses par établissements</h3>
+      </div>
+      <div class="panel-body">
+        <canvas id="doughnut" class="chart chart-doughnut" chart-data="data.visuals.repOutComp.data" chart-labels="data.visuals.repOutComp.labels">
+        </canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Répartitions des recettes par établissements</h3>
+      </div>
+      <div class="panel-body">
+        <canvas id="doughnut" class="chart chart-doughnut" chart-data="data.visuals.repInComp.data" chart-labels="data.visuals.repInComp.labels">
+        </canvas>
+      </div>
+    </div>
+  </div>
+</div>

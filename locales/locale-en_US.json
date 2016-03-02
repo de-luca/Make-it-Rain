@@ -1,0 +1,165 @@
+{
+  "MENU": {
+    "DASHBOARD": "Dashboard",
+    "NEW-MOVE": "New movement",
+    "HISTORY": "History",
+    "ACCOUNTS": "Accounts",
+    "MANAGE-ACCOUNTS": "Manage accounts",
+    "MANAGE-PURPOSES": "Manage purposes",
+    "MANAGE-COMPANIES": "Manage companies"
+  },
+  "OVERVIEW": {
+    "TITLE": "Overview"
+  },
+  "LANGUAGE": "Language selection",
+  "income": "Income",
+  "outcome": "Outcome",
+  "transfer": "Transfer",
+  "init": "Initialization",
+  "NEW_MOVE": {
+    "TITLE": "Add a new movement",
+    "INCOME": "@:income",
+    "OUTCOME": "@:outcome",
+    "TRANSFER": "@:transfer",
+    "NEW_INCOME": "New income",
+    "NEW_OUTCOME": "New outcome",
+    "NEW_TRANSFER": "New transfer",
+    "FORM": {
+      "SELECT_ACCOUNT": "Select account",
+      "AMOUNT": "Amount",
+      "SELECT_ACCOUNT_OUT": "Select debit account",
+      "SELECT_ACCOUNT_IN": "Select credit account",
+      "SELECT_PURPOSE_OUT": "Select outcome purpose",
+      "SELECT_PURPOSE_IN": "Select income purpose",
+      "SELECT_COMPANY": "Select company",
+      "SUBMIT_INCOME": "Add income",
+      "SUBMIT_OUTCOME": "Add outcome",
+      "SUBMIT_TRANSFER": "Add transfer"
+    }
+  },
+  "HISTORY": {
+    "TITLE": "Movements history",
+    "ACCOUNT": "Account",
+    "AMOUNT": "@:NEW_MOVE.FORM.AMOUNT",
+    "DATE": "Date",
+    "TYPE": "Type",
+    "INFOS": "Informations",
+    "NO_PURPOSE": "Undefined purpose",
+    "NO_COMPANY": "Undefined company",
+    "ACTIONS": "Actions",
+    "DELETE": "Delete",
+    "MODAL": {
+      "DELETE": {
+        "TITLE": "Confirm removal.",
+        "BODY": "Cannot be undone.",
+        "CANCEL": "Cancel",
+        "OK": "Confirm"
+      }
+    }
+  },
+  "ACCOUNT": {
+    "TITLE": "Dashboard - Account",
+    "BALANCE": "Current balance",
+    "BUTTON_HISTORY": "History",
+    "BUTTON_CHARTS": "Visualization",
+    "AMOUNT": "@:HISTORY.AMOUNT",
+    "DATE": "@:HISTORY.DATE",
+    "TYPE": "@:HISTORY.TYPE",
+    "INFOS": "@:HISTORY.INFOS",
+    "NO_PURPOSE": "@:HISTORY.NO_PURPOSE",
+    "NO_COMPANY": "@:HISTORY.NO_COMPANY",
+    "ACTIONS": "@:HISTORY.ACTIONS",
+    "DELETE": "@:HISTORY.DELETE",
+    "MODAL": {
+      "DELETE": {
+        "TITLE": "@:HISTORY.MODAL.DELETE.TITLE",
+        "BODY": "@:HISTORY.MODAL.DELETE.BODY",
+        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
+        "OK": "@:HISTORY.MODAL.DELETE.OK"
+      }
+    }
+  },
+  "ACCOUNTS": {
+    "TITLE": "Accounts management",
+    "NAME": "Name",
+    "BALANCE": "Balance",
+    "ACTIONS": "@:HISTORY.ACTIONS",
+    "EDIT": "Edit",
+    "DELETE": "@:HISTORY.DELETE",
+    "FORM": {
+      "NAME": "New account name",
+      "INIT": "Initial balance",
+      "SUBMIT": "Add"
+    },
+    "MODAL": {
+      "DELETE": {
+        "TITLE": "@:HISTORY.MODAL.DELETE.TITLE",
+        "BODY_1": "The account and all associated movements will be removed.",
+        "BODY_2": "@:HISTORY.MODAL.DELETE.BODY",
+        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
+        "OK": "@:HISTORY.MODAL.DELETE.OK"
+      },
+      "EDIT": {
+        "TITLE": "Enter the account new name",
+        "BODY": "Name",
+        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
+        "OK": "Save"
+      }
+    }
+  },
+  "PURPOSES": {
+    "TITLE": "Purposes management",
+    "NAME": "@:ACCOUNTS.NAME",
+    "TYPE": "@:HISTORY.TYPE",
+    "ACTIONS": "@:HISTORY.ACTIONS",
+    "EDIT": "@:ACCOUNTS.EDIT",
+    "DELETE": "@:HISTORY.DELETE",
+    "FORM": {
+      "NAME": "New purpose name",
+      "INCOME": "@:NEW_MOVE.INCOME",
+      "OUTCOME": "@:NEW_MOVE.OUTCOME",
+      "SUBMIT": "@:ACCOUNTS.FORM.SUBMIT"
+    },
+    "MODAL": {
+      "DELETE": {
+        "TITLE": "@:HISTORY.MODAL.DELETE.TITLE",
+        "BODY_1": "The purpose and all associated movements will be removed.",
+        "BODY_2": "@:HISTORY.MODAL.DELETE.BODY",
+        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
+        "OK": "@:HISTORY.MODAL.DELETE.OK"
+      },
+      "EDIT": {
+        "TITLE": "Enter the purpose new name",
+        "BODY": "@:ACCOUNTS.MODAL.EDIT.BODY",
+        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
+        "OK": "@:ACCOUNTS.MODAL.EDIT.OK"
+      }
+    }
+  },
+  "COMPANIES": {
+    "TITLE": "Companies management",
+    "NAME": "@:ACCOUNTS.NAME",
+    "ACTIONS": "@:HISTORY.ACTIONS",
+    "EDIT": "@:ACCOUNTS.EDIT",
+    "DELETE": "@:HISTORY.DELETE",
+    "FORM": {
+      "NAME": "New company name",
+      "SUBMIT": "@:ACCOUNTS.FORM.SUBMIT"
+    },
+    "MODAL": {
+      "DELETE": {
+        "TITLE": "@:HISTORY.MODAL.DELETE.TITLE",
+        "BODY_1": "The company and all associated movements will be removed.",
+        "BODY_2": "@:HISTORY.MODAL.DELETE.BODY",
+        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
+        "OK": "@:HISTORY.MODAL.DELETE.OK"
+      },
+      "EDIT": {
+        "TITLE": "Enter the company new name",
+        "BODY": "@:ACCOUNTS.MODAL.EDIT.BODY",
+        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
+        "OK": "@:ACCOUNTS.MODAL.EDIT.OK"
+      }
+    }
+  }
+}
