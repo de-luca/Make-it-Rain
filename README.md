@@ -3,8 +3,9 @@ Make-it-Rain
 
 > A simple money manager for simple people.
 
-### This is absolutely not ready for use!
+![Make it Rain!](https://media.giphy.com/media/3o85xx4YNo8LuDFIli/giphy.gif)
 
+### This is absolutely not ready for use!
 
 ## Contributing
 - First you'll need to have `npm` installed. The easiest way to get it is with [Node.js](https://nodejs.org/en/).
