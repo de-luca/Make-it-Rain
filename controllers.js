@@ -94,8 +94,9 @@ controller('accountCtrl', ['$scope', '$rootScope', '$q', '$routeParams', '$uibMo
   $scope.predicate = 'date';
   $scope.reverse = true;
   $scope.show = 'history';
-
-    $scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+  $scope.newMove = {
+    date: new Date()
+  };
 
   let getData = () => {
     return $q((resolve, reject) => {
@@ -121,12 +122,53 @@ controller('accountCtrl', ['$scope', '$rootScope', '$q', '$routeParams', '$uibMo
 
   getData().then((data) => {
     $scope.data = data;
-    console.log(data);
   }, (err) => {
     throw err;
   });
 
-  $scope.delete = function(id) {
+  $scope.order = (predicate) => {
+    $scope.predicate = predicate;
+    $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : true;
+  };
+
+  $scope.insert = () => {
+    //$scope.newMove._id = Math.random().toString(36).substring(7);
+    $scope.newMove.amount = parseFloat($scope.newMove.amount);
+    let proceed = _.after(3, () => {
+      getData().then((data) => {
+        $scope.data = data;
+        $scope.newMove = {
+          date: new Date()
+        };
+      });
+    });
+
+    db.update({_id: $routeParams.id}, {$push: {moves: $scope.newMove}, $inc: {balance: $scope.newMove.amount}}, {}, () => {
+      proceed();
+    });
+
+    if($scope.newMove.post) {
+      db.update({_obj: 'post_list'}, {$addToSet: {list: $scope.newMove.post}}, {}, () => {
+        proceed();
+      });
+    } else {
+      proceed();
+    }
+
+    if($scope.newMove.post) {
+      db.update({_obj: 'company_list'}, {$addToSet: {list: $scope.newMove.company}}, {}, () => {
+        proceed();
+      });
+    } else {
+      proceed();
+    }
+  };
+
+  /* NOPE */
+  $scope.remove = (id) => {
+    console.log(id);
+
+    /*
     var modalInstance = $uibModal.open({
       animation: true,
       templateUrl: 'deleteModal.html',
@@ -145,6 +187,7 @@ controller('accountCtrl', ['$scope', '$rootScope', '$q', '$routeParams', '$uibMo
         });
       });
     });
+    */
   };
 
 }]).
