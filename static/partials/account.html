@@ -67,7 +67,7 @@
           </td>
         </tr>
         <tr ng-repeat="move in data.acc.moves | orderBy:predicate:reverse"
-            ng-class="{'info': move._type === 'init', 'warning': move._type === 'transfer', 'success': move._type === 'income', 'danger': move._type === 'outcome'}">
+            ng-class="{'success': move.amount > 0, 'warning': move.amount < 0}">
           <td>{{move.date|date:'dd-MM-yyyy'}}</td>
           <td class="text-center">{{move.amount|currency:''}} €</td>
           <td class="text-center">{{move.post}}</td>
@@ -75,6 +75,9 @@
           <td class="text-right">
             <button type="button" ng-click="remove(move)" class="btn btn-danger btn-block btn-xs"><i class="fa fa-fw fa-remove"></i>{{'ACCOUNT.HISTORY.REMOVE'|translate}}</button>
           </td>
+        </tr>
+        <tr class="active">
+          <td colspan="5" class="text-center"><strong>{{'ACCOUNT.HISTORY.INIT'|translate}}: {{data.acc.init|currency:''}} €</strong></td>
         </tr>
       </tbody>
     </table>

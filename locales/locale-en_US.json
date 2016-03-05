@@ -51,7 +51,8 @@
       "COMPANY": "Company",
       "ACTIONS": "Actions",
       "ADD"    : "@:ADD",
-      "REMOVE" : "@:REMOVE"
+      "REMOVE" : "@:REMOVE",
+      "INIT"   : "Initial balance"
     },
     "MODAL": {
       "DELETE": {

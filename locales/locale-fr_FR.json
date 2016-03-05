@@ -3,7 +3,7 @@
   "CONFIRM": "Confirmer",
   "REMOVE" : "Supprimer",
   "ADD"    : "Ajouter",
-  
+
   "NAV": {
     "BACK_TOOLTIP" : "Retour à la liste des comptes",
     "LANGUAGE_TOOLTIP"  : "Selection de la langue",
@@ -51,7 +51,8 @@
       "COMPANY": "Établissement",
       "ACTIONS": "Actions",
       "ADD"    : "@:ADD",
-      "REMOVE" : "@:REMOVE"
+      "REMOVE" : "@:REMOVE",
+      "INIT"   : "Solde initial"
     },
     "MODAL": {
       "DELETE": {
