@@ -2,17 +2,17 @@
 <script type="text/ng-template" id="editModal.html">
   <div class="modal-header">
     <p class="modal-title lead">
-      {{'ACCOUNTS.MODAL.EDIT.TITLE'|translate}}
+      {{'OVERVIEW.MODAL.EDIT.TITLE'|translate}}
     </p>
   </div>
   <div class="modal-body">
     <ng-form name="updateModalForm">
-      <input name="name" type="text" ng-model="obj.newName" class="form-control" placeholder="{{'ACCOUNTS.MODAL.EDIT.BODY'|translate}}" autocomplete="off" required>
+      <input name="name" type="text" ng-model="obj.newName" class="form-control" placeholder="{{'OVERVIEW.MODAL.EDIT.BODY'|translate}}" autocomplete="off" required>
     </ng-form>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-default btn-sm" type="button" ng-click="cancel()">{{'ACCOUNTS.MODAL.EDIT.CANCEL'|translate}}</button>
-    <button class="btn btn-primary btn-sm" ng-disabled="!updateModalForm.$valid" type="button" ng-click="ok()">{{'ACCOUNTS.MODAL.EDIT.OK'|translate}}</button>
+    <button class="btn btn-default btn-sm" type="button" ng-click="cancel()">{{'OVERVIEW.MODAL.EDIT.CANCEL'|translate}}</button>
+    <button class="btn btn-primary btn-sm" ng-disabled="!updateModalForm.$valid" type="button" ng-click="ok()">{{'OVERVIEW.MODAL.EDIT.OK'|translate}}</button>
   </div>
 </script>
 <!-- !Edit Modal -->
@@ -21,18 +21,17 @@
 <script type="text/ng-template" id="deleteModal.html">
   <div class="modal-header">
     <p class="modal-title lead">
-      {{'ACCOUNTS.MODAL.DELETE.TITLE'|translate}}
+      {{'OVERVIEW.MODAL.DELETE.TITLE'|translate}}
     </p>
   </div>
   <div class="modal-body">
     <p>
-      {{'ACCOUNTS.MODAL.DELETE.BODY_1'|translate}}<br>
-      {{'ACCOUNTS.MODAL.DELETE.BODY_2'|translate}}
+      {{'OVERVIEW.MODAL.DELETE.BODY'|translate}}
     </p>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-default btn-sm" type="button" ng-click="cancel()">{{'ACCOUNTS.MODAL.DELETE.CANCEL'|translate}}</button>
-    <button class="btn btn-primary btn-sm" type="button" ng-click="ok()">{{'ACCOUNTS.MODAL.DELETE.OK'|translate}}</button>
+    <button class="btn btn-default btn-sm" type="button" ng-click="cancel()">{{'OVERVIEW.MODAL.DELETE.CANCEL'|translate}}</button>
+    <button class="btn btn-primary btn-sm" type="button" ng-click="ok()">{{'OVERVIEW.MODAL.DELETE.OK'|translate}}</button>
   </div>
 </script>
 <!-- !Delete Modal -->
@@ -53,11 +52,11 @@
             <strong>{{acc.name}}</strong>
           </div>
           <div class="col-xs-4 text-center">
-            {{acc.balance}} €
+            {{acc.balance|currency:''}} €
           </div>
           <div class="col-xs-4 text-right">
-            <button type="button" class="btn btn-warning btn-xs" ng-click="edit(acc._id)"><i class="fa fa-fw fa-edit"></i> Edit</button>
-            <button type="button" class="btn btn-danger btn-xs" ng-click="remove(acc._id)"><i class="fa fa-fw fa-remove"></i> Remove</button>
+            <button type="button" class="btn btn-warning btn-xs" ng-click="edit(acc._id)"><i class="fa fa-fw fa-edit"></i> {{'OVERVIEW.EDIT'|translate}}</button>
+            <button type="button" class="btn btn-danger btn-xs" ng-click="remove(acc._id)"><i class="fa fa-fw fa-remove"></i> {{'OVERVIEW.REMOVE'|translate}}</button>
           </div>
         </div>
       </a>
@@ -65,13 +64,13 @@
       <li class="list-group-item" ng-show="new">
         <div class="row">
           <div class="col-xs-4">
-            <input type="text" ng-model="newAccount.name" class="input-sm form-control" placeholder="{{'ACCOUNTS.FORM.NAME'|translate}}" required>
+            <input type="text" ng-model="newAccount.name" class="input-sm form-control" placeholder="{{'OVERVIEW.FORM.NAME'|translate}}" required>
           </div>
           <div class="col-xs-4">
-            <input type="text" ng-model="newAccount.init" class="input-sm form-control" placeholder="{{'ACCOUNTS.FORM.INIT'|translate}}" required>
+            <input type="text" ng-model="newAccount.init" class="input-sm form-control" placeholder="{{'OVERVIEW.FORM.INIT'|translate}}" required>
           </div>
           <div class="col-xs-4">
-            <button type="button" ng-disabled="!newAccount.init || !newAccount.name" ng-click="insert()" class="btn btn-default btn-block btn-sm">{{'ACCOUNTS.FORM.SUBMIT'|translate}}</button>
+            <button type="button" ng-disabled="!newAccount.init || !newAccount.name" ng-click="insert()" class="btn btn-default btn-block btn-sm">{{'OVERVIEW.FORM.SUBMIT'|translate}}</button>
           </div>
         </div>
       </li>
@@ -79,7 +78,7 @@
       <a href="" ng-click="new=true" class="list-group-item">
         <div class="row">
           <div class="col-xs-12 text-center">
-            <strong><i class="fa fa-fw fa-plus"></i> Nouveau compte</strong>
+            <strong><i class="fa fa-fw fa-plus"></i> {{'OVERVIEW.NEW_ACCOUNT'|translate}}</strong>
           </div>
         </div>
       </a>

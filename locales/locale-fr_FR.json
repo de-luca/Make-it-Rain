@@ -1,164 +1,64 @@
 {
-  "MENU": {
-    "DASHBOARD": "Tableau de bord",
-    "NEW-MOVE": "Nouveau mouvement",
-    "HISTORY": "Historique",
-    "ACCOUNTS": "Comptes",
-    "MANAGE-ACCOUNTS": "Gérer les comptes",
-    "MANAGE-PURPOSES": "Gérer les postes",
-    "MANAGE-COMPANIES": "Gérer les établissements"
+  "CANCEL" : "Annuler",
+  "CONFIRM": "Confirmer",
+  "REMOVE" : "Supprimer",
+  "ADD"    : "Ajouter",
+  
+  "NAV": {
+    "BACK_TOOLTIP" : "Retour à la liste des comptes",
+    "LANGUAGE_TOOLTIP"  : "Selection de la langue",
+    "LANGUAGES": {
+      "ENGLISH": "Anglais",
+      "FRENCH" : "Français"
+    }
   },
+
   "OVERVIEW": {
-    "TITLE": "Tableau de bord"
-  },
-  "LANGUAGE": "Selection de la langue",
-  "income": "Recette",
-  "outcome": "Dépense",
-  "transfer": "Transfert",
-  "init": "Initialisation",
-  "NEW_MOVE": {
-    "TITLE": "Ajouter un mouvement monétaire",
-    "INCOME": "@:income",
-    "OUTCOME": "@:outcome",
-    "TRANSFER": "@:transfer",
-    "NEW_INCOME": "Nouvelle recette",
-    "NEW_OUTCOME": "Nouvelle dépense",
-    "NEW_TRANSFER": "Nouveau transfert",
+    "TITLE"      : "Vos comptes",
+    "NEW_ACCOUNT": "Nouveau Compte",
+    "EDIT"       : "Editer",
+    "REMOVE"     : "@:REMOVE",
     "FORM": {
-      "SELECT_ACCOUNT": "Sélectionnez le compte",
-      "AMOUNT": "Montant",
-      "SELECT_ACCOUNT_OUT": "Sélectionnez le compte débiteur",
-      "SELECT_ACCOUNT_IN": "Sélectionnez le compte créditeur",
-      "SELECT_PURPOSE_OUT": "Sélectionnez un poste de dépense",
-      "SELECT_PURPOSE_IN": "Sélectionnez un poste de recette",
-      "SELECT_COMPANY": "Sélectionnez un établissement",
-      "SUBMIT_INCOME": "Ajouter une recette",
-      "SUBMIT_OUTCOME": "Ajouter une dépense",
-      "SUBMIT_TRANSFER": "Ajouter un transfert"
-    }
-  },
-  "HISTORY": {
-    "TITLE": "Historique des mouvements monétaire",
-    "ACCOUNT": "Compte",
-    "AMOUNT": "@:NEW_MOVE.FORM.AMOUNT",
-    "DATE": "Date",
-    "TYPE": "Type",
-    "INFOS": "Informations",
-    "NO_PURPOSE": "Raison indefinie",
-    "NO_COMPANY": "Etablissements indefini",
-    "ACTIONS": "Actions",
-    "DELETE": "Suppr",
+      "NAME"  : "Nom",
+      "INIT"  : "Solde initial",
+      "SUBMIT": "@:ADD"
+    },
     "MODAL": {
+      "EDIT": {
+        "TITLE" : "Edition du compte",
+        "BODY"  : "Entrez le nouveau nom du compte",
+        "CANCEL": "@:CANCEL",
+        "OK"    : "Sauvegarder"
+      },
       "DELETE": {
-        "TITLE": "Confirmez la suppression.",
-        "BODY": "Cette opération est irréversible.",
-        "CANCEL": "Annuler",
-        "OK": "Confirmer"
+        "TITLE" : "Suppression de compte",
+        "BODY"  : "Etes vous sur de vouloir supprimer ce compte ?",
+        "CANCEL": "@:CANCEL",
+        "OK"    : "@:CONFIRM"
       }
     }
   },
+
   "ACCOUNT": {
-    "TITLE": "Tableau de bord pour le compte",
-    "BALANCE": "Solde actuel",
+    "TITLE"         : "Compte",
+    "BALANCE"       : "Solde actuel",
     "BUTTON_HISTORY": "Historique",
-    "BUTTON_CHARTS": "Visualisation",
-    "AMOUNT": "@:HISTORY.AMOUNT",
-    "DATE": "@:HISTORY.DATE",
-    "TYPE": "@:HISTORY.TYPE",
-    "INFOS": "@:HISTORY.INFOS",
-    "NO_PURPOSE": "@:HISTORY.NO_PURPOSE",
-    "NO_COMPANY": "@:HISTORY.NO_COMPANY",
-    "ACTIONS": "@:HISTORY.ACTIONS",
-    "DELETE": "@:HISTORY.DELETE",
-    "MODAL": {
-      "DELETE": {
-        "TITLE": "@:HISTORY.MODAL.DELETE.TITLE",
-        "BODY": "@:HISTORY.MODAL.DELETE.BODY",
-        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
-        "OK": "@:HISTORY.MODAL.DELETE.OK"
-      }
-    }
-  },
-  "ACCOUNTS": {
-    "TITLE": "Gestion des comptes",
-    "NAME": "Nom",
-    "BALANCE": "Solde",
-    "ACTIONS": "@:HISTORY.ACTIONS",
-    "EDIT": "Edit",
-    "DELETE": "@:HISTORY.DELETE",
-    "FORM": {
-      "NAME": "Nom du nouveau compte",
-      "INIT": "Solde initial",
-      "SUBMIT": "Ajouter"
+    "BUTTON_CHARTS" : "Visualisation",
+    "HISTORY": {
+      "DATE"   : "Date",
+      "AMOUNT" : "Montant",
+      "POST"   : "Poste",
+      "COMPANY": "Établissement",
+      "ACTIONS": "Actions",
+      "ADD"    : "@:ADD",
+      "REMOVE" : "@:REMOVE"
     },
     "MODAL": {
       "DELETE": {
-        "TITLE": "@:HISTORY.MODAL.DELETE.TITLE",
-        "BODY_1": "Le compte et tout ses mouvements associés seront supprimés.",
-        "BODY_2": "@:HISTORY.MODAL.DELETE.BODY",
-        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
-        "OK": "@:HISTORY.MODAL.DELETE.OK"
-      },
-      "EDIT": {
-        "TITLE": "Entrez le nouveau nom du compte.",
-        "BODY": "Nom",
-        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
-        "OK": "Sauvegarder"
-      }
-    }
-  },
-  "PURPOSES": {
-    "TITLE": "Gérer les postes",
-    "NAME": "@:ACCOUNTS.NAME",
-    "TYPE": "@:HISTORY.TYPE",
-    "ACTIONS": "@:HISTORY.ACTIONS",
-    "EDIT": "@:ACCOUNTS.EDIT",
-    "DELETE": "@:HISTORY.DELETE",
-    "FORM": {
-      "NAME": "Nom du nouveau poste",
-      "INCOME": "@:NEW_MOVE.INCOME",
-      "OUTCOME": "@:NEW_MOVE.OUTCOME",
-      "SUBMIT": "@:ACCOUNTS.FORM.SUBMIT"
-    },
-    "MODAL": {
-      "DELETE": {
-        "TITLE": "@:HISTORY.MODAL.DELETE.TITLE",
-        "BODY_1": "Le poste et tout ses mouvements associés seront supprimés.",
-        "BODY_2": "@:HISTORY.MODAL.DELETE.BODY",
-        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
-        "OK": "@:HISTORY.MODAL.DELETE.OK"
-      },
-      "EDIT": {
-        "TITLE": "Entrez le nouveau nom du poste.",
-        "BODY": "@:ACCOUNTS.MODAL.EDIT.BODY",
-        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
-        "OK": "@:ACCOUNTS.MODAL.EDIT.OK"
-      }
-    }
-  },
-  "COMPANIES": {
-    "TITLE": "Gerer les établissements",
-    "NAME": "@:ACCOUNTS.NAME",
-    "ACTIONS": "@:HISTORY.ACTIONS",
-    "EDIT": "@:ACCOUNTS.EDIT",
-    "DELETE": "@:HISTORY.DELETE",
-    "FORM": {
-      "NAME": "Nom du nouvel établissement",
-      "SUBMIT": "@:ACCOUNTS.FORM.SUBMIT"
-    },
-    "MODAL": {
-      "DELETE": {
-        "TITLE": "@:HISTORY.MODAL.DELETE.TITLE",
-        "BODY_1": "L'établissement et tout ses mouvements associés seront supprimés.",
-        "BODY_2": "@:HISTORY.MODAL.DELETE.BODY",
-        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
-        "OK": "@:HISTORY.MODAL.DELETE.OK"
-      },
-      "EDIT": {
-        "TITLE": "Entrez le nouveau nom de l'établissement.",
-        "BODY": "@:ACCOUNTS.MODAL.EDIT.BODY",
-        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
-        "OK": "@:ACCOUNTS.MODAL.EDIT.OK"
+        "TITLE"  : "Suppression de mouvement",
+        "BODY"   : "Etes vous sur de vouloir supprimer ce mouvement ?",
+        "CANCEL" : "@:CANCEL",
+        "CONFIRM": "@:CONFIRM"
       }
     }
   }

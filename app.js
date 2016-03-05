@@ -39,7 +39,6 @@ config(['$routeProvider', ($routeProvider) => {
     when('/overview', {
       templateUrl: 'partials/overview.html',
       controller: 'overviewCtrl',
-      tab: 'overview'
     }).
     when('/account/:id', {
       templateUrl: 'partials/account.html',

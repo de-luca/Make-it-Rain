@@ -8,7 +8,7 @@ let db = new Datastore({
 
 angular.module('mirCtrls', []).
 
-controller('overviewCtrl', ['$scope', '$q', '$rootScope', '$uibModal', ($scope, $q, $rootScope, $uibModal) => {
+controller('overviewCtrl', ['$scope', '$q', '$uibModal', ($scope, $q, $uibModal) => {
   let getData = () => {
     return $q((resolve, reject) => {
       db.find({_obj: "account"}, (error, docs) => {
@@ -35,10 +35,6 @@ controller('overviewCtrl', ['$scope', '$q', '$rootScope', '$uibModal', ($scope, 
       $scope.newAccount = undefined;
       getData().then((docs) => {
         $scope.accounts = docs;
-        $rootScope.$broadcast('notif', {
-          type: 'success',
-          msg: 'Le compte '+inserted.name+' a bien été enregistrée et initialisé a un solde de '+inserted.init+'€.'
-        });
       }, (err) => {
         throw err;
       });
@@ -56,10 +52,6 @@ controller('overviewCtrl', ['$scope', '$q', '$rootScope', '$uibModal', ($scope, 
       db.update({_id: id}, {$set: {name: obj.newName}}, {}, (err, numReplaced) => {
         getData().then((docs) => {
           $scope.accounts = docs;
-          $rootScope.$broadcast('notif', {
-            type: 'success',
-            msg: 'Le nouveau nom du compte a été sauvegarder.'
-          });
         }, (err) => {
           throw err;
         });
@@ -78,10 +70,6 @@ controller('overviewCtrl', ['$scope', '$q', '$rootScope', '$uibModal', ($scope, 
       db.remove({_id: id}, {multi: true} ,(err) => {
         getData().then((docs) => {
           $scope.accounts = docs;
-          $rootScope.$broadcast('notif', {
-            type: 'success',
-            msg: 'Le compte et tout ses mouvements associés ont été supprimés.'
-          });
         }, (err) => {
           throw err;
         });
@@ -90,7 +78,7 @@ controller('overviewCtrl', ['$scope', '$q', '$rootScope', '$uibModal', ($scope, 
   };
 }]).
 
-controller('accountCtrl', ['$scope', '$rootScope', '$q', '$routeParams', '$uibModal', function($scope, $rootScope, $q, $routeParams, $uibModal) {
+controller('accountCtrl', ['$scope', '$q', '$routeParams', '$uibModal', ($scope, $q, $routeParams, $uibModal) => {
   $scope.predicate = 'date';
   $scope.reverse = true;
   $scope.show = 'history';
@@ -164,65 +152,34 @@ controller('accountCtrl', ['$scope', '$rootScope', '$q', '$routeParams', '$uibMo
     }
   };
 
-  /* NOPE */
+  /* WIP */
   $scope.remove = (id) => {
     console.log(id);
-
-    /*
-    var modalInstance = $uibModal.open({
-      animation: true,
-      templateUrl: 'deleteModal.html',
-      controller: 'deleteModalCtrl'
-    });
-    modalInstance.result.then(function() {
-      db.remove({_id: id}, {}, function(err) {
-        getData().then(function(data) {
-          $scope.data = data;
-          $rootScope.$broadcast('notif', {
-            type: 'success',
-            msg: 'Le mouvement a bien été supprimé.'
-          });
-        }, function(err) {
-          throw err;
-        });
-      });
-    });
-    */
   };
 
 }]).
 
-controller('editModalCtrl', function ($scope, $uibModalInstance) {
-  $scope.ok = function () {
+controller('editModalCtrl', ($scope, $uibModalInstance) => {
+  $scope.ok = () => {
     $uibModalInstance.close($scope.obj);
   };
-  $scope.cancel = function () {
-    $uibModalInstance.dismiss('cancel');
-  };
-}).
-
-controller('deleteModalCtrl', function ($scope, $uibModalInstance) {
-  $scope.ok = function () {
-    $uibModalInstance.close();
-  };
-  $scope.cancel = function () {
+  $scope.cancel = () => {
     $uibModalInstance.dismiss();
   };
 }).
 
-controller('notifCtrl', ['$scope', function($scope) {
-  $scope.notifs = [];
-  $scope.closeNotif = function(index) {
-    $scope.notifs.splice(index, 1);
+controller('deleteModalCtrl', ($scope, $uibModalInstance) => {
+  $scope.ok = () => {
+    $uibModalInstance.close();
   };
-  $scope.$on('notif', function(event, notif) {
-    $scope.notifs.push(notif);
-  });
-}]).
+  $scope.cancel = () => {
+    $uibModalInstance.dismiss();
+  };
+}).
 
-controller('localeCtrl', ['$scope', '$translate', function($scope, $translate) {
+controller('localeCtrl', ['$scope', '$translate', ($scope, $translate) => {
   $scope.currentLocale = $translate.use();
-  $scope.selectLocale = function(locale) {
+  $scope.selectLocale = (locale) => {
     $translate.use(locale);
     $scope.currentLocale = locale;
   };

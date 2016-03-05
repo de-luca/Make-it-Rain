@@ -20,8 +20,8 @@
 <div class="row">
   <div class="col-xs-12">
     <h3>
-      {{'ACCOUNT.TITLE'|translate}} <strong>{{data.acc.name}}</strong>
-      <small>{{'ACCOUNT.BALANCE'|translate}}: <span ng-class="{'text-success': data.balance > 0, 'text-danger': data.balance < 0}"><strong>{{data.acc.balance|currency:''}} €</strong></span></small>
+      {{'ACCOUNT.TITLE'|translate}} - <i>{{data.acc.name}}</i>
+      <small>{{'ACCOUNT.BALANCE'|translate}}: <span ng-class="{'text-success': data.acc.balance > 0, 'text-danger': data.acc.balance < 0}"><strong>{{data.acc.balance|currency:''}} €</strong></span></small>
     </h3>
     <hr>
   </div>
@@ -41,29 +41,29 @@
     <table class="table table-hover table-condensed">
       <thead>
         <tr>
-          <th><a ng-click="order('date')">{{'ACCOUNT.DATE'|translate}}</a></th>
-          <th class="text-center"><a ng-click="order('amount')">{{'ACCOUNT.AMOUNT'|translate}}</a></th>
-          <th class="text-center"><a ng-click="order('post')">{{'ACCOUNT.TYPE'|translate}}</a></th>
-          <th class="text-center"><a ng-click="order('company')">{{'ACCOUNT.INFOS'|translate}}</a></th>
-          <th class="text-right">{{'ACCOUNT.ACTIONS'|translate}}</th>
+          <th><a ng-click="order('date')">{{'ACCOUNT.HISTORY.DATE'|translate}}</a></th>
+          <th class="text-center"><a ng-click="order('amount')">{{'ACCOUNT.HISTORY.AMOUNT'|translate}}</a></th>
+          <th class="text-center"><a ng-click="order('post')">{{'ACCOUNT.HISTORY.POST'|translate}}</a></th>
+          <th class="text-center"><a ng-click="order('company')">{{'ACCOUNT.HISTORY.COMPANY'|translate}}</a></th>
+          <th class="text-right">{{'ACCOUNT.HISTORY.ACTIONS'|translate}}</th>
         </tr>
       </thead>
       <tbody>
         <tr class="active">
           <td>
-            <input type="text" ng-model="newMove.date" class="input-sm form-control" uib-datepicker-popup="dd/MM/yyyy" is-open="open" show-button-bar="false" ng-focus="open=true">
+            <input type="text" ng-model="newMove.date" class="input-sm form-control" placeholder="{{'ACCOUNT.HISTORY.DATE'|translate}}" uib-datepicker-popup="dd/MM/yyyy" is-open="open" show-button-bar="false" ng-focus="open=true">
           </td>
           <td>
-            <input type="text" ng-model="newMove.amount" class="input-sm form-control" placeholder="Amount">
+            <input type="text" ng-model="newMove.amount" class="input-sm form-control" placeholder="{{'ACCOUNT.HISTORY.AMOUNT'|translate}}">
           </td>
           <td>
-            <input type="text" ng-model="newMove.post" uib-typeahead="post for post in data.posts | filter:$viewValue | limitTo:8" class="input-sm form-control" placeholder="Post">
+            <input type="text" ng-model="newMove.post" uib-typeahead="post for post in data.posts | filter:$viewValue | limitTo:8" class="input-sm form-control" placeholder="{{'ACCOUNT.HISTORY.POST'|translate}}">
           </td>
           <td>
-            <input type="text" ng-model="newMove.company" uib-typeahead="comp for comp in data.comps | filter:$viewValue | limitTo:8" class="input-sm form-control" placeholder="Company">
+            <input type="text" ng-model="newMove.company" uib-typeahead="comp for comp in data.comps | filter:$viewValue | limitTo:8" class="input-sm form-control" placeholder="{{'ACCOUNT.HISTORY.COMPANY'|translate}}">
           </td>
           <td>
-            <button type="button" ng-disabled="!newMove.date || !newMove.amount" ng-click="insert()" class="btn btn-default btn-block btn-sm">{{'ACCOUNTS.FORM.SUBMIT'|translate}}</button>
+            <button type="button" ng-disabled="!newMove.date || !newMove.amount" ng-click="insert()" class="btn btn-default btn-block btn-sm">{{'ACCOUNT.HISTORY.ADD'|translate}}</button>
           </td>
         </tr>
         <tr ng-repeat="move in data.acc.moves | orderBy:predicate:reverse"
@@ -73,7 +73,7 @@
           <td class="text-center">{{move.post}}</td>
           <td class="text-center">{{move.company}}</td>
           <td class="text-right">
-            <button type="button" ng-click="remove(move)" class="btn btn-danger btn-block btn-xs"><i class="fa fa-fw fa-remove"></i>{{'ACCOUNT.DELETE'|translate}}</button>
+            <button type="button" ng-click="remove(move)" class="btn btn-danger btn-block btn-xs"><i class="fa fa-fw fa-remove"></i>{{'ACCOUNT.HISTORY.REMOVE'|translate}}</button>
           </td>
         </tr>
       </tbody>
@@ -82,67 +82,7 @@
 </div>
 
 <div ng-if="show === 'visual'">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Evolution du solde (en €)</h3>
-        </div>
-        <div class="panel-body">
-          <canvas height="80" id="line" class="chart chart-line" chart-data="data.visuals.evo.data"
-            chart-labels="data.visuals.evo.labels" chart-legend="true" chart-series="data.visuals.evo.series" chart-colours="data.visuals.colours">
-          </canvas>
-        </div>
-      </div>
-    </div>
-  </div>
-
-<div class="row">
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Répartitions des dépenses par postes</h3>
-      </div>
-      <div class="panel-body">
-        <canvas id="doughnut" class="chart chart-doughnut" chart-data="data.visuals.repOutPurp.data" chart-labels="data.visuals.repOutPurp.labels">
-        </canvas>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Répartitions des recettes par postes</h3>
-      </div>
-      <div class="panel-body">
-        <canvas id="doughnut" class="chart chart-doughnut" chart-data="data.visuals.repInPurp.data" chart-labels="data.visuals.repInPurp.labels">
-        </canvas>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Répartitions des dépenses par établissements</h3>
-      </div>
-      <div class="panel-body">
-        <canvas id="doughnut" class="chart chart-doughnut" chart-data="data.visuals.repOutComp.data" chart-labels="data.visuals.repOutComp.labels">
-        </canvas>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Répartitions des recettes par établissements</h3>
-      </div>
-      <div class="panel-body">
-        <canvas id="doughnut" class="chart chart-doughnut" chart-data="data.visuals.repInComp.data" chart-labels="data.visuals.repInComp.labels">
-        </canvas>
-      </div>
-    </div>
-  </div>
+  <p class="lead text-center">
+    WIP
+  </p>
 </div>

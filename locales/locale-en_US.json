@@ -1,164 +1,64 @@
 {
-  "MENU": {
-    "DASHBOARD": "Dashboard",
-    "NEW-MOVE": "New movement",
-    "HISTORY": "History",
-    "ACCOUNTS": "Accounts",
-    "MANAGE-ACCOUNTS": "Manage accounts",
-    "MANAGE-PURPOSES": "Manage purposes",
-    "MANAGE-COMPANIES": "Manage companies"
+  "CANCEL" : "Cancel",
+  "CONFIRM": "Confirm",
+  "REMOVE" : "Remove",
+  "ADD"    : "Add",
+
+  "NAV": {
+    "BACK_TOOLTIP" : "Back to account list",
+    "LANGUAGE_TOOLTIP"  : "Language selection",
+    "LANGUAGES": {
+      "ENGLISH": "English",
+      "FRENCH" : "French"
+    }
   },
+
   "OVERVIEW": {
-    "TITLE": "Overview"
-  },
-  "LANGUAGE": "Language selection",
-  "income": "Income",
-  "outcome": "Outcome",
-  "transfer": "Transfer",
-  "init": "Initialization",
-  "NEW_MOVE": {
-    "TITLE": "Add a new movement",
-    "INCOME": "@:income",
-    "OUTCOME": "@:outcome",
-    "TRANSFER": "@:transfer",
-    "NEW_INCOME": "New income",
-    "NEW_OUTCOME": "New outcome",
-    "NEW_TRANSFER": "New transfer",
+    "TITLE"      : "Your accounts",
+    "NEW_ACCOUNT": "New account",
+    "EDIT"       : "Edit",
+    "REMOVE"     : "@:REMOVE",
     "FORM": {
-      "SELECT_ACCOUNT": "Select account",
-      "AMOUNT": "Amount",
-      "SELECT_ACCOUNT_OUT": "Select debit account",
-      "SELECT_ACCOUNT_IN": "Select credit account",
-      "SELECT_PURPOSE_OUT": "Select outcome purpose",
-      "SELECT_PURPOSE_IN": "Select income purpose",
-      "SELECT_COMPANY": "Select company",
-      "SUBMIT_INCOME": "Add income",
-      "SUBMIT_OUTCOME": "Add outcome",
-      "SUBMIT_TRANSFER": "Add transfer"
-    }
-  },
-  "HISTORY": {
-    "TITLE": "Movements history",
-    "ACCOUNT": "Account",
-    "AMOUNT": "@:NEW_MOVE.FORM.AMOUNT",
-    "DATE": "Date",
-    "TYPE": "Type",
-    "INFOS": "Informations",
-    "NO_PURPOSE": "Undefined purpose",
-    "NO_COMPANY": "Undefined company",
-    "ACTIONS": "Actions",
-    "DELETE": "Delete",
+      "NAME"  : "Account name",
+      "INIT"  : "Initial balance",
+      "SUBMIT": "@:ADD"
+    },
     "MODAL": {
+      "EDIT": {
+        "TITLE" : "Account edition",
+        "BODY"  : "Enter the account new name",
+        "CANCEL": "@:CANCEL",
+        "OK"    : "Save"
+      },
       "DELETE": {
-        "TITLE": "Confirm removal.",
-        "BODY": "Cannot be undone.",
-        "CANCEL": "Cancel",
-        "OK": "Confirm"
+        "TITLE" : "Account removal",
+        "BODY"  : "Are you sure you want to remove this account?",
+        "CANCEL": "@:CANCEL",
+        "OK"    : "@:CONFIRM"
       }
     }
   },
+
   "ACCOUNT": {
-    "TITLE": "Dashboard - Account",
-    "BALANCE": "Current balance",
+    "TITLE"         : "Account",
+    "BALANCE"       : "Current balance",
     "BUTTON_HISTORY": "History",
-    "BUTTON_CHARTS": "Visualization",
-    "AMOUNT": "@:HISTORY.AMOUNT",
-    "DATE": "@:HISTORY.DATE",
-    "TYPE": "@:HISTORY.TYPE",
-    "INFOS": "@:HISTORY.INFOS",
-    "NO_PURPOSE": "@:HISTORY.NO_PURPOSE",
-    "NO_COMPANY": "@:HISTORY.NO_COMPANY",
-    "ACTIONS": "@:HISTORY.ACTIONS",
-    "DELETE": "@:HISTORY.DELETE",
-    "MODAL": {
-      "DELETE": {
-        "TITLE": "@:HISTORY.MODAL.DELETE.TITLE",
-        "BODY": "@:HISTORY.MODAL.DELETE.BODY",
-        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
-        "OK": "@:HISTORY.MODAL.DELETE.OK"
-      }
-    }
-  },
-  "ACCOUNTS": {
-    "TITLE": "Accounts management",
-    "NAME": "Name",
-    "BALANCE": "Balance",
-    "ACTIONS": "@:HISTORY.ACTIONS",
-    "EDIT": "Edit",
-    "DELETE": "@:HISTORY.DELETE",
-    "FORM": {
-      "NAME": "New account name",
-      "INIT": "Initial balance",
-      "SUBMIT": "Add"
+    "BUTTON_CHARTS" : "Visualization",
+    "HISTORY": {
+      "DATE"   : "Date",
+      "AMOUNT" : "Amount",
+      "POST"   : "Post",
+      "COMPANY": "Company",
+      "ACTIONS": "Actions",
+      "ADD"    : "@:ADD",
+      "REMOVE" : "@:REMOVE"
     },
     "MODAL": {
       "DELETE": {
-        "TITLE": "@:HISTORY.MODAL.DELETE.TITLE",
-        "BODY_1": "The account and all associated movements will be removed.",
-        "BODY_2": "@:HISTORY.MODAL.DELETE.BODY",
-        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
-        "OK": "@:HISTORY.MODAL.DELETE.OK"
-      },
-      "EDIT": {
-        "TITLE": "Enter the account new name",
-        "BODY": "Name",
-        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
-        "OK": "Save"
-      }
-    }
-  },
-  "PURPOSES": {
-    "TITLE": "Purposes management",
-    "NAME": "@:ACCOUNTS.NAME",
-    "TYPE": "@:HISTORY.TYPE",
-    "ACTIONS": "@:HISTORY.ACTIONS",
-    "EDIT": "@:ACCOUNTS.EDIT",
-    "DELETE": "@:HISTORY.DELETE",
-    "FORM": {
-      "NAME": "New purpose name",
-      "INCOME": "@:NEW_MOVE.INCOME",
-      "OUTCOME": "@:NEW_MOVE.OUTCOME",
-      "SUBMIT": "@:ACCOUNTS.FORM.SUBMIT"
-    },
-    "MODAL": {
-      "DELETE": {
-        "TITLE": "@:HISTORY.MODAL.DELETE.TITLE",
-        "BODY_1": "The purpose and all associated movements will be removed.",
-        "BODY_2": "@:HISTORY.MODAL.DELETE.BODY",
-        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
-        "OK": "@:HISTORY.MODAL.DELETE.OK"
-      },
-      "EDIT": {
-        "TITLE": "Enter the purpose new name",
-        "BODY": "@:ACCOUNTS.MODAL.EDIT.BODY",
-        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
-        "OK": "@:ACCOUNTS.MODAL.EDIT.OK"
-      }
-    }
-  },
-  "COMPANIES": {
-    "TITLE": "Companies management",
-    "NAME": "@:ACCOUNTS.NAME",
-    "ACTIONS": "@:HISTORY.ACTIONS",
-    "EDIT": "@:ACCOUNTS.EDIT",
-    "DELETE": "@:HISTORY.DELETE",
-    "FORM": {
-      "NAME": "New company name",
-      "SUBMIT": "@:ACCOUNTS.FORM.SUBMIT"
-    },
-    "MODAL": {
-      "DELETE": {
-        "TITLE": "@:HISTORY.MODAL.DELETE.TITLE",
-        "BODY_1": "The company and all associated movements will be removed.",
-        "BODY_2": "@:HISTORY.MODAL.DELETE.BODY",
-        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
-        "OK": "@:HISTORY.MODAL.DELETE.OK"
-      },
-      "EDIT": {
-        "TITLE": "Enter the company new name",
-        "BODY": "@:ACCOUNTS.MODAL.EDIT.BODY",
-        "CANCEL": "@:HISTORY.MODAL.DELETE.CANCEL",
-        "OK": "@:ACCOUNTS.MODAL.EDIT.OK"
+        "TITLE"  : "Move removal",
+        "BODY"   : "Are you sure you want to remove this move?",
+        "CANCEL" : "@:CANCEL",
+        "CONFIRM": "@:CONFIRM"
       }
     }
   }
