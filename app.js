@@ -4,7 +4,6 @@ angular.module('mirApp', [
   'ngRoute',
   'mirCtrls',
   'ui.bootstrap',
-  'ui.bootstrap.datetimepicker',
   'chart.js',
   'pascalprecht.translate'
 ]).
