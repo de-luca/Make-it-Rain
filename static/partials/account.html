@@ -21,7 +21,14 @@
   <div class="col-xs-12">
     <h3>
       {{'ACCOUNT.TITLE'|translate}} - <i>{{data.acc.name}}</i>
-      <small>{{'ACCOUNT.BALANCE'|translate}}: <span ng-class="{'text-success': data.acc.balance > 0, 'text-danger': data.acc.balance < 0}"><strong>{{data.acc.balance|currency:''}} €</strong></span></small>
+      <small>{{'ACCOUNT.BALANCE'|translate}}:
+        <span ng-class="{'text-info': data.acc.balance > data.acc.thresholds.ok,
+                         'text-success': data.acc.balance < data.acc.thresholds.ok,
+                         'text-warning': data.acc.balance < data.acc.thresholds.warning,
+                         'text-danger': data.acc.balance < data.acc.thresholds.critical}">
+          <strong>{{data.acc.balance|currency:''}} €</strong>
+        </span>
+      </small>
     </h3>
     <hr>
   </div>
@@ -95,7 +102,7 @@
   <div class="row">
     <div class="col-xs-12">
       <p class="lead">
-        You can adjust warning threshold for this account by indicating each of them.
+        {{'ACCOUNT.CONFIG.HELP_TEXT'|translate}}
       </p>
     </div>
   </div>
@@ -105,7 +112,7 @@
       <div class="col-xs-4">
         <div class="form-group has-feedback"
              ng-class="{'has-success': thresholdsForm.critical.$valid, 'has-error': !thresholdsForm.critical.$valid}">
-          <label class="control-label">Critical thresholds</label>
+          <label class="text-danger">{{'ACCOUNT.CONFIG.CRITICAL_THRESHOLD'|translate}}</label>
           <input type="number"
                  name="critical"
                  max="{{data.acc.thresholds.warning - 1}}"
@@ -113,7 +120,7 @@
                  ng-model-options="{debounce: 1000, allowInvalid: false}"
                  ng-change="updateTS(thresholdsForm.$valid)"
                  class="form-control input-sm"
-                 placeholder="Critical threshold"
+                 placeholder="{{'ACCOUNT.CONFIG.CRITICAL_THRESHOLD'|translate}}"
                  required>
           <i class="fa fa-fw form-control-feedback"
              ng-class="{'fa-check': thresholdsForm.critical.$valid, 'fa-times': !thresholdsForm.critical.$valid}"
@@ -123,7 +130,7 @@
       <div class="col-xs-4">
         <div class="form-group has-feedback"
              ng-class="{'has-success': thresholdsForm.warning.$valid, 'has-error': !thresholdsForm.warning.$valid}">
-          <label class="control-label">Warning thresholds</label>
+          <label class="text-warning">{{'ACCOUNT.CONFIG.WARNING_THRESHOLD'|translate}}</label>
           <input type="number"
                  name="warning"
                  min="{{data.acc.thresholds.critical}}"
@@ -132,7 +139,7 @@
                  ng-model-options="{debounce: 1000}"
                  ng-change="updateTS(thresholdsForm.$valid)"
                  class="form-control input-sm"
-                 placeholder="Warning threshold"
+                 placeholder="{{'ACCOUNT.CONFIG.WARNING_THRESHOLD'|translate}}"
                  required>
                  <i class="fa fa-fw form-control-feedback"
                     ng-class="{'fa-check': thresholdsForm.warning.$valid, 'fa-times': !thresholdsForm.warning.$valid}"
@@ -142,7 +149,7 @@
       <div class="col-xs-4">
         <div class="form-group has-feedback"
              ng-class="{'has-success': thresholdsForm.ok.$valid, 'has-error': !thresholdsForm.ok.$valid}">
-          <label class="control-label">All good thresholds</label>
+          <label class="text-success">{{'ACCOUNT.CONFIG.OK_THRESHOLD'|translate}}</label>
           <input type="number"
                  name="ok"
                  min="{{data.acc.thresholds.warning}}"
@@ -150,7 +157,7 @@
                  ng-model-options="{debounce: 1000}"
                  ng-change="updateTS(thresholdsForm.$valid)"
                  class="form-control input-sm"
-                 placeholder="All good threshold"
+                 placeholder="{{'ACCOUNT.CONFIG.OK_THRESHOLD'|translate}}"
                  required>
                  <i class="fa fa-fw form-control-feedback"
                     ng-class="{'fa-check': thresholdsForm.ok.$valid, 'fa-times': !thresholdsForm.ok.$valid}"

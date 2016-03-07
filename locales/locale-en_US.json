@@ -54,6 +54,12 @@
       "REMOVE" : "@:REMOVE",
       "INIT"   : "Initial balance"
     },
+    "CONFIG": {
+      "HELP_TEXT"         : "You can adjust warning threshold for this account by indicating each of them.",
+      "CRITICAL_THRESHOLD": "Critical threshold",
+      "WARNING_THRESHOLD" : "Warning threshold",
+      "OK_THRESHOLD"      : "All good threshold"
+    },
     "MODAL": {
       "DELETE": {
         "TITLE"  : "Move removal",
