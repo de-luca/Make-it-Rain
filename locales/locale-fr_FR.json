@@ -15,7 +15,7 @@
 
   "OVERVIEW": {
     "TITLE"      : "Vos comptes",
-    "NEW_ACCOUNT": "Nouveau Compte",
+    "NEW_ACCOUNT": "Nouveau compte",
     "EDIT"       : "Editer",
     "REMOVE"     : "@:REMOVE",
     "FORM": {
@@ -32,7 +32,7 @@
       },
       "DELETE": {
         "TITLE" : "Suppression de compte",
-        "BODY"  : "Etes vous sur de vouloir supprimer ce compte ?",
+        "BODY"  : "Etes-vous sûr de vouloir supprimer ce compte ?",
         "CANCEL": "@:CANCEL",
         "OK"    : "@:CONFIRM"
       }
@@ -55,15 +55,15 @@
       "INIT"   : "Solde initial"
     },
     "CONFIG": {
-      "HELP_TEXT"         : "Vous pouvez ajuster les paliers d'avertissement en paramétrant chacun d'entre eux.",
+      "HELP_TEXT"         : "Vous pouvez ajuster les paliers d'avertissement de ce compte en les paramétrant.",
       "CRITICAL_THRESHOLD": "Palier critique",
       "WARNING_THRESHOLD" : "Palier \"à surveiller\"",
       "OK_THRESHOLD"      : "Palier serein"
     },
     "MODAL": {
       "DELETE": {
-        "TITLE"  : "Suppression de mouvement",
-        "BODY"   : "Etes vous sur de vouloir supprimer ce mouvement ?",
+        "TITLE"  : "Suppression d'opération",
+        "BODY"   : "Etes-vous sûr de vouloir supprimer cette opération ?",
         "CANCEL" : "@:CANCEL",
         "CONFIRM": "@:CONFIRM"
       }
