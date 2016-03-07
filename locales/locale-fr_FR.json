@@ -54,6 +54,12 @@
       "REMOVE" : "@:REMOVE",
       "INIT"   : "Solde initial"
     },
+    "CONFIG": {
+      "HELP_TEXT"         : "Vous pouvez ajuster les paliers d'avertissement en paramétrant chacun d'entre eux.",
+      "CRITICAL_THRESHOLD": "Palier critique",
+      "WARNING_THRESHOLD" : "Palier \"à surveiller\"",
+      "OK_THRESHOLD"      : "Palier serein"
+    },
     "MODAL": {
       "DELETE": {
         "TITLE"  : "Suppression de mouvement",
