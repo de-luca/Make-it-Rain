@@ -32,6 +32,7 @@
     <div class="form-group btn-group btn-group-justified">
       <label class="btn btn-default" ng-model="show" uib-btn-radio="'history'">{{'ACCOUNT.BUTTON_HISTORY'|translate}}</label>
       <label class="btn btn-default" ng-model="show" uib-btn-radio="'visual'">{{'ACCOUNT.BUTTON_CHARTS'|translate}}</label>
+      <label class="btn btn-default" ng-model="show" uib-btn-radio="'config'"><i class="fa fa-fw fa-cogs"></i></label>
     </div>
   </div>
 </div>
@@ -88,4 +89,92 @@
   <p class="lead text-center">
     WIP
   </p>
+</div>
+
+<div ng-if="show === 'config'">
+  <div class="row">
+    <div class="col-xs-12">
+      <p class="lead">
+        You can adjust warning threshold for this account by indicating each of them.
+      </p>
+    </div>
+  </div>
+
+  <div class="row form-group">
+    <form name="thresholdsForm">
+      <div class="col-xs-4">
+        <div class="form-group has-feedback"
+             ng-class="{'has-success': thresholdsForm.critical.$valid, 'has-error': !thresholdsForm.critical.$valid}">
+          <label class="control-label">Critical thresholds</label>
+          <input type="number"
+                 name="critical"
+                 max="{{data.acc.thresholds.warning - 1}}"
+                 ng-model="data.acc.thresholds.critical"
+                 ng-model-options="{debounce: 1000, allowInvalid: false}"
+                 ng-change="updateTS(thresholdsForm.$valid)"
+                 class="form-control input-sm"
+                 placeholder="Critical threshold"
+                 required>
+          <i class="fa fa-fw form-control-feedback"
+             ng-class="{'fa-check': thresholdsForm.critical.$valid, 'fa-times': !thresholdsForm.critical.$valid}"
+             aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="form-group has-feedback"
+             ng-class="{'has-success': thresholdsForm.warning.$valid, 'has-error': !thresholdsForm.warning.$valid}">
+          <label class="control-label">Warning thresholds</label>
+          <input type="number"
+                 name="warning"
+                 min="{{data.acc.thresholds.critical}}"
+                 max="{{data.acc.thresholds.ok - 1}}"
+                 ng-model="data.acc.thresholds.warning"
+                 ng-model-options="{debounce: 1000}"
+                 ng-change="updateTS(thresholdsForm.$valid)"
+                 class="form-control input-sm"
+                 placeholder="Warning threshold"
+                 required>
+                 <i class="fa fa-fw form-control-feedback"
+                    ng-class="{'fa-check': thresholdsForm.warning.$valid, 'fa-times': !thresholdsForm.warning.$valid}"
+                    aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="form-group has-feedback"
+             ng-class="{'has-success': thresholdsForm.ok.$valid, 'has-error': !thresholdsForm.ok.$valid}">
+          <label class="control-label">All good thresholds</label>
+          <input type="number"
+                 name="ok"
+                 min="{{data.acc.thresholds.warning}}"
+                 ng-model="data.acc.thresholds.ok"
+                 ng-model-options="{debounce: 1000}"
+                 ng-change="updateTS(thresholdsForm.$valid)"
+                 class="form-control input-sm"
+                 placeholder="All good threshold"
+                 required>
+                 <i class="fa fa-fw form-control-feedback"
+                    ng-class="{'fa-check': thresholdsForm.ok.$valid, 'fa-times': !thresholdsForm.ok.$valid}"
+                    aria-hidden="true"></i>
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="progress" style="height: 30px;">
+        <div class="progress-bar progress-bar-danger" style="width: 25%; text-align: right;">
+          <span style="position: relative; left: 25px; top: 5px;"><strong>{{data.acc.thresholds.critical|currency:''}} €</strong></span>
+        </div>
+        <div class="progress-bar progress-bar-warning" style="width: 25%; text-align: right;">
+          <span style="position: relative; left: 25px; top: 5px;"><strong>{{data.acc.thresholds.warning|currency:''}} €</strong></span>
+        </div>
+        <div class="progress-bar progress-bar-success" style="width: 25%; text-align: right;">
+          <span style="position: relative; left: 25px; top: 5px;"><strong>{{data.acc.thresholds.ok|currency:''}} €</strong></span>
+        </div>
+        <div class="progress-bar progress-bar-info" style="width: 25%"></div>
+      </div>
+    </div>
+  </div>
 </div>

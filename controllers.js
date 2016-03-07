@@ -28,6 +28,11 @@ controller('overviewCtrl', ['$scope', '$q', '$uibModal', ($scope, $q, $uibModal)
       name: $scope.newAccount.name,
       init: parseFloat($scope.newAccount.init),
       balance: parseFloat($scope.newAccount.init),
+      thresholds: {
+        critical: 0,
+        warning: 500,
+        ok: 1000
+      },
       moves: []
     };
     db.insert(acc, (err, inserted) => {
@@ -157,6 +162,12 @@ controller('accountCtrl', ['$scope', '$q', '$routeParams', '$uibModal', ($scope,
     console.log(id);
   };
 
+  $scope.updateTS = (valid) => {
+    if(valid) {
+      db.update({_id: $routeParams.id}, {$set: {thresholds: $scope.data.acc.thresholds}});
+    }
+  };
+
 }]).
 
 controller('editModalCtrl', ($scope, $uibModalInstance) => {
@@ -177,7 +188,8 @@ controller('deleteModalCtrl', ($scope, $uibModalInstance) => {
   };
 }).
 
-controller('localeCtrl', ['$scope', '$translate', ($scope, $translate) => {
+controller('topBarCtrl', ['$scope', '$route', '$translate', ($scope, $route, $translate) => {
+  $scope.route = $route;
   $scope.currentLocale = $translate.use();
   $scope.selectLocale = (locale) => {
     $translate.use(locale);

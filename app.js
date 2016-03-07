@@ -41,7 +41,8 @@ config(['$routeProvider', ($routeProvider) => {
     }).
     when('/account/:id', {
       templateUrl: 'partials/account.html',
-      controller: 'accountCtrl'
+      controller: 'accountCtrl',
+      contextTopBar: true
     }).
     otherwise({
       redirectTo: '/overview'
