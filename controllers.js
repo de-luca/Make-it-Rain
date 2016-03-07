@@ -8,7 +8,7 @@ let db = new Datastore({
 
 angular.module('mirCtrls', []).
 
-controller('overviewCtrl', ['$scope', '$q', '$uibModal', ($scope, $q, $uibModal) => {
+controller('overviewCtrl', function($scope, $q, $uibModal) {
   let getData = () => {
     return $q((resolve, reject) => {
       db.find({_obj: "account"}, (error, docs) => {
@@ -81,9 +81,9 @@ controller('overviewCtrl', ['$scope', '$q', '$uibModal', ($scope, $q, $uibModal)
       });
     });
   };
-}]).
+}).
 
-controller('accountCtrl', ['$scope', '$q', '$routeParams', '$uibModal', ($scope, $q, $routeParams, $uibModal) => {
+controller('accountCtrl', function($scope, $q, $routeParams, $uibModal) {
   $scope.predicate = 'date';
   $scope.reverse = true;
   $scope.show = 'history';
@@ -168,9 +168,9 @@ controller('accountCtrl', ['$scope', '$q', '$routeParams', '$uibModal', ($scope,
     }
   };
 
-}]).
+}).
 
-controller('editModalCtrl', ($scope, $uibModalInstance) => {
+controller('editModalCtrl', function($scope, $uibModalInstance) {
   $scope.ok = () => {
     $uibModalInstance.close($scope.obj);
   };
@@ -179,7 +179,7 @@ controller('editModalCtrl', ($scope, $uibModalInstance) => {
   };
 }).
 
-controller('deleteModalCtrl', ($scope, $uibModalInstance) => {
+controller('deleteModalCtrl', function($scope, $uibModalInstance) {
   $scope.ok = () => {
     $uibModalInstance.close();
   };
@@ -188,11 +188,11 @@ controller('deleteModalCtrl', ($scope, $uibModalInstance) => {
   };
 }).
 
-controller('topBarCtrl', ['$scope', '$route', '$translate', ($scope, $route, $translate) => {
+controller('topBarCtrl', function($scope, $route, $translate) {
   $scope.route = $route;
   $scope.currentLocale = $translate.use();
   $scope.selectLocale = (locale) => {
     $translate.use(locale);
     $scope.currentLocale = locale;
   };
-}]);
+});

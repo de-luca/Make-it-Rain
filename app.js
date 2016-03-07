@@ -17,7 +17,7 @@ factory('electronStorage', () => {
     }
   };
 }).
-config(['$translateProvider', ($translateProvider) => {
+config( ($translateProvider) => {
   $translateProvider.
     useStaticFilesLoader({
       prefix: __dirname+'/../locales/locale-',
@@ -32,8 +32,8 @@ config(['$translateProvider', ($translateProvider) => {
   $translateProvider.fallbackLanguage('en_US').
     useSanitizeValueStrategy('escape').
     useStorage('electronStorage');
-}]).
-config(['$routeProvider', ($routeProvider) => {
+}).
+config( ($routeProvider) => {
   $routeProvider.
     when('/overview', {
       templateUrl: 'partials/overview.html',
@@ -47,4 +47,4 @@ config(['$routeProvider', ($routeProvider) => {
     otherwise({
       redirectTo: '/overview'
     });
-}]);
+});
