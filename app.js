@@ -6,8 +6,8 @@ angular.module('mirApp', [
   'ui.bootstrap',
   'chart.js',
   'pascalprecht.translate'
-]).
-factory('electronStorage', () => {
+])
+.factory('electronStorage', () => {
   return {
     put: function (name, value) {
       localStorage.setItem(name, value);
@@ -16,8 +16,8 @@ factory('electronStorage', () => {
       localStorage.getItem(name);
     }
   };
-}).
-config( ($translateProvider) => {
+})
+.config( ($translateProvider) => {
   $translateProvider.
     useStaticFilesLoader({
       prefix: __dirname+'/../locales/locale-',
@@ -32,8 +32,8 @@ config( ($translateProvider) => {
   $translateProvider.fallbackLanguage('en_US').
     useSanitizeValueStrategy('escape').
     useStorage('electronStorage');
-}).
-config( ($routeProvider) => {
+})
+.config( ($routeProvider) => {
   $routeProvider.
     when('/overview', {
       templateUrl: 'partials/overview.html',

@@ -6,9 +6,18 @@ let db = new Datastore({
   autoload: true
 });
 
-angular.module('mirCtrls', []).
+db.findOne({_obj: 'post_list'}, (err, posts) => {
+  if(!posts)
+    db.insert({_obj: "post_list", list: []});
+});
+db.findOne({_obj: 'company_list'}, (err, comps) => {
+  if(!comps)
+    db.insert({_obj: "company_list", list: []});
+});
 
-controller('overviewCtrl', function($scope, $q, $uibModal) {
+angular.module('mirCtrls', [])
+
+.controller('overviewCtrl', function($scope, $q, $uibModal) {
   let getData = () => {
     return $q((resolve, reject) => {
       db.find({_obj: "account"}, (error, docs) => {
@@ -81,9 +90,9 @@ controller('overviewCtrl', function($scope, $q, $uibModal) {
       });
     });
   };
-}).
+})
 
-controller('accountCtrl', function($scope, $q, $routeParams, $uibModal) {
+.controller('accountCtrl', function($scope, $q, $routeParams, $uibModal) {
   $scope.predicate = 'date';
   $scope.reverse = true;
   $scope.show = 'history';
@@ -125,7 +134,6 @@ controller('accountCtrl', function($scope, $q, $routeParams, $uibModal) {
   };
 
   $scope.insert = () => {
-    //$scope.newMove._id = Math.random().toString(36).substring(7);
     $scope.newMove.amount = parseFloat($scope.newMove.amount);
     let proceed = _.after(3, () => {
       getData().then((data) => {
@@ -168,27 +176,27 @@ controller('accountCtrl', function($scope, $q, $routeParams, $uibModal) {
     }
   };
 
-}).
+})
 
-controller('editModalCtrl', function($scope, $uibModalInstance) {
+.controller('editModalCtrl', function($scope, $uibModalInstance) {
   $scope.ok = () => {
     $uibModalInstance.close($scope.obj);
   };
   $scope.cancel = () => {
     $uibModalInstance.dismiss();
   };
-}).
+})
 
-controller('deleteModalCtrl', function($scope, $uibModalInstance) {
+.controller('deleteModalCtrl', function($scope, $uibModalInstance) {
   $scope.ok = () => {
     $uibModalInstance.close();
   };
   $scope.cancel = () => {
     $uibModalInstance.dismiss();
   };
-}).
+})
 
-controller('topBarCtrl', function($scope, $route, $translate) {
+.controller('topBarCtrl', function($scope, $route, $translate) {
   $scope.route = $route;
   $scope.currentLocale = $translate.use();
   $scope.selectLocale = (locale) => {
