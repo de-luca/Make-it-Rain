@@ -26,7 +26,7 @@
     "MODAL": {
       "EDIT": {
         "TITLE" : "Account edition",
-        "BODY"  : "Enter the account new name",
+        "BODY"  : "Enter new account name",
         "CANCEL": "@:CANCEL",
         "OK"    : "Save"
       },
@@ -55,15 +55,15 @@
       "INIT"   : "Initial balance"
     },
     "CONFIG": {
-      "HELP_TEXT"         : "You can adjust warning threshold for this account by indicating each of them.",
+      "HELP_TEXT"         : "You can adjust warning thresholds for this account by indicating each of them.",
       "CRITICAL_THRESHOLD": "Critical threshold",
       "WARNING_THRESHOLD" : "Warning threshold",
       "OK_THRESHOLD"      : "All good threshold"
     },
     "MODAL": {
       "DELETE": {
-        "TITLE"  : "Move removal",
-        "BODY"   : "Are you sure you want to remove this move?",
+        "TITLE"  : "Transaction removal",
+        "BODY"   : "Are you sure you want to remove this transaction?",
         "CANCEL" : "@:CANCEL",
         "CONFIRM": "@:CONFIRM"
       }
