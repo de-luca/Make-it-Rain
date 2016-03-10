@@ -255,7 +255,7 @@ angular.module('mirCtrls', [])
          (!refiner.from || item.date >= refiner.from) &&
          (!refiner.to || item.date <= refiner.to)) {
         filtered.push(item);
-    }
+      }
     });
     return filtered;
   };
