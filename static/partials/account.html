@@ -45,7 +45,7 @@
   </div>
 </div>
 
-<div ng-if="show === 'history'">
+<div ng-show="show === 'history'">
   <div class="row">
     <div class="col-md-12">
       <table class="table table-hover table-condensed">
@@ -95,20 +95,23 @@
   </div>
 </div>
 
-<div ng-if="show === 'refine'">
+<div ng-show="show === 'refine'">
   <div class="row">
     <div class="col-xs-2">
       <div class="form-group">
-        <div class="btn-group-vertical btn-block">
-          <label ng-repeat="post in data.posts" class="btn btn-sm btn-default" ng-change="refinePost(post)" ng-model="__c" uib-btn-checkbox>{{post}}</label>
+        <div class="btn-group-vertical btn-block" data-toggle="buttons">
+          <label ng-repeat="post in data.posts" class="btn btn-sm btn-default" ng-click="refinePost(post)">
+            <input type="checkbox" autocomplete="off">{{post}}
+          </label>
         </div>
       </div>
       <div class="form-group">
-        <div class="btn-group-vertical btn-block">
-          <label ng-repeat="comp in data.comps" class="btn btn-sm btn-default" ng-change="refineComp(comp)" ng-model="__c" uib-btn-checkbox>{{comp}}</label>
+        <div class="btn-group-vertical btn-block" data-toggle="buttons">
+          <label ng-repeat="comp in data.comps" class="btn btn-sm btn-default" ng-click="refineComp(comp)">
+            <input type="checkbox" autocomplete="off">{{comp}}
+          </label>
         </div>
       </div>
-
       <div class="form-group">
         <input type="text" ng-model="refine.from" class="input-sm form-control" placeholder="{{'ACCOUNT.REFINE.DATE_FROM'|translate}}" uib-datepicker-popup="dd/MM/yyyy" is-open="from" show-button-bar="false" ng-focus="from=true">
       </div>
@@ -160,13 +163,13 @@
   </div>
 </div>
 
-<div ng-if="show === 'visual'">
+<div ng-show="show === 'visual'">
   <p class="lead text-center">
     WIP
   </p>
 </div>
 
-<div ng-if="show === 'config'">
+<div ng-show="show === 'config'">
   <div class="row">
     <div class="col-xs-12">
       <p class="lead">
