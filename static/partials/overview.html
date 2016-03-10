@@ -46,17 +46,20 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="list-group">
-      <a ng-repeat="acc in accounts | orderBy:predicate:reverse" href="#/account/{{acc._id}}" class="list-group-item"
-         ng-class="{'list-group-item-info': acc.balance > acc.thresholds.ok,
-                    'list-group-item-success': acc.balance < acc.thresholds.ok,
-                    'list-group-item-warning': acc.balance < acc.thresholds.warning,
-                    'list-group-item-danger': acc.balance < acc.thresholds.critical}">
-        <div class="row">
+      <a ng-repeat="acc in accounts" href="#/account/{{acc._id}}" class="list-group-item">
+        <div class="row"
+             ng-class="{'text-info': acc.balance > acc.thresholds.ok,
+                        'text-success': acc.balance > acc.thresholds.warning && acc.balance < acc.thresholds.ok,
+                        'text-warning': acc.balance > acc.thresholds.critical && acc.balance < acc.thresholds.warning,
+                        'text-danger': acc.balance < acc.thresholds.critical}">
           <div class="col-xs-4">
+            <i class="fa fa-fw"
+               ng-class="{'fa-exclamation': acc.balance > acc.thresholds.critical && acc.balance < acc.thresholds.warning,
+                          'fa-exclamation-circle': acc.balance < acc.thresholds.critical}"></i>
             <strong>{{acc.name}}</strong>
           </div>
           <div class="col-xs-4 text-center">
-            {{acc.balance|currency:''}} €
+            <strong>{{acc.balance|currency:''}} €</strong>
           </div>
           <div class="col-xs-4 text-right">
             <button type="button" class="btn btn-warning btn-xs" ng-click="edit(acc._id)"><i class="fa fa-fw fa-edit"></i> {{'OVERVIEW.EDIT'|translate}}</button>

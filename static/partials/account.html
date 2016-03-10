@@ -22,10 +22,10 @@
     <h3>
       {{'ACCOUNT.TITLE'|translate}} - <i>{{data.acc.name}}</i>
       <small>{{'ACCOUNT.BALANCE'|translate}}:
-        <span ng-class="{'text-info': data.acc.balance > data.acc.thresholds.ok,
-                         'text-success': data.acc.balance < data.acc.thresholds.ok,
-                         'text-warning': data.acc.balance < data.acc.thresholds.warning,
-                         'text-danger': data.acc.balance < data.acc.thresholds.critical}">
+        <span ng-class="{'text-info':    data.acc.balance > data.acc.thresholds.ok,
+                         'text-success': data.acc.balance > data.acc.thresholds.warning && data.acc.balance < data.acc.thresholds.ok,
+                         'text-warning': data.acc.balance > data.acc.thresholds.critical && data.acc.balance < data.acc.thresholds.warning,
+                         'text-danger':  data.acc.balance < data.acc.thresholds.critical}">
           <strong>{{data.acc.balance|currency:''}} €</strong>
         </span>
       </small>
@@ -35,7 +35,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-xs-12">
     <div class="form-group btn-group btn-group-justified">
       <label class="btn btn-default" ng-model="show" uib-btn-radio="'history'">{{'ACCOUNT.BUTTON_HISTORY'|translate}}</label>
       <label class="btn btn-default" ng-model="show" uib-btn-radio="'refine'">{{'ACCOUNT.BUTTON_REFINE'|translate}}</label>
@@ -47,7 +47,7 @@
 
 <div ng-show="show === 'history'">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-xs-12">
       <table class="table table-hover table-condensed">
         <thead>
           <tr>
@@ -76,10 +76,9 @@
               <button type="button" ng-disabled="!newMove.date || !newMove.amount" ng-click="insert()" class="btn btn-default btn-block btn-sm">{{'ACCOUNT.HISTORY.ADD'|translate}}</button>
             </td>
           </tr>
-          <tr ng-repeat="move in data.acc.moves | orderBy:predicate:reverse"
-              ng-class="{'success': move.amount > 0, 'warning': move.amount < 0}">
+          <tr ng-repeat="move in data.acc.moves | orderBy:predicate:reverse">
             <td>{{move.date|date:'dd-MM-yyyy'}}</td>
-            <td class="text-center">{{move.amount|currency:''}} €</td>
+            <td class="text-center" ng-class="{'text-success': move.amount > 0, 'text-danger': move.amount < 0}"><strong>{{move.amount|currency:''}} €</strong></td>
             <td class="text-center">{{move.post}}</td>
             <td class="text-center">{{move.company}}</td>
             <td class="text-right">
@@ -87,7 +86,7 @@
             </td>
           </tr>
           <tr class="active">
-            <td colspan="5" class="text-center"><strong>{{'ACCOUNT.HISTORY.INIT'|translate}}: {{data.acc.init|currency:''}} €</strong></td>
+            <td colspan="5"><em>{{'ACCOUNT.HISTORY.INIT'|translate}}: {{data.acc.init|currency:''}} €</em></td>
           </tr>
         </tbody>
       </table>
@@ -150,10 +149,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="move in data.acc.moves | orderBy:predicate:reverse | refineFilter:refine as results"
-              ng-class="{'success': move.amount > 0, 'warning': move.amount < 0}">
+          <tr ng-repeat="move in data.acc.moves | orderBy:predicate:reverse | refineFilter:refine as results">
             <td>{{move.date|date:'dd-MM-yyyy'}}</td>
-            <td class="text-center">{{move.amount|currency:''}} €</td>
+            <td class="text-center" ng-class="{'text-success': move.amount > 0, 'text-danger': move.amount < 0}"><strong>{{move.amount|currency:''}} €</strong></td>
             <td class="text-center">{{move.post}}</td>
             <td class="text-center">{{move.company}}</td>
           </tr>
