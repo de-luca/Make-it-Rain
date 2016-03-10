@@ -43,6 +43,7 @@
     "TITLE"         : "Account",
     "BALANCE"       : "Current balance",
     "BUTTON_HISTORY": "History",
+    "BUTTON_REFINE" : "Refine",
     "BUTTON_CHARTS" : "Visualization",
     "HISTORY": {
       "DATE"   : "Date",
@@ -53,6 +54,13 @@
       "ADD"    : "@:ADD",
       "REMOVE" : "@:REMOVE",
       "INIT"   : "Initial balance"
+    },
+    "REFINE": {
+      "AVERAGE"   : "Average",
+      "MIN"       : "Min",
+      "MAX"       : "Max",
+      "DATE_FROM" : "Date from...",
+      "DATE_TO"   : "Date to..."
     },
     "CONFIG": {
       "HELP_TEXT"         : "You can adjust warning thresholds for this account by indicating each of them.",
