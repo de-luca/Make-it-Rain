@@ -96,8 +96,49 @@ angular.module('mirCtrls', [])
   $scope.predicate = 'date';
   $scope.reverse = true;
   $scope.show = 'history';
+  $scope.results = [];
   $scope.newMove = {
     date: new Date()
+  };
+
+  $scope.refine = {
+    post: [],
+    company: []
+  };
+  $scope.refinePost = (name) => {
+    let index;
+    if((index = $scope.refine.post.indexOf(name)) > -1)
+      $scope.refine.post.splice(index, 1);
+    else
+      $scope.refine.post.push(name);
+  };
+  $scope.refineComp = (name) => {
+    let index;
+    if((index = $scope.refine.company.indexOf(name)) > -1)
+      $scope.refine.company.splice(index, 1);
+    else
+      $scope.refine.company.push(name);
+  };
+  $scope.avg = (items) => {
+    let avg = 0;
+    items.forEach((item) => {
+      avg += item.amount;
+    });
+    return Math.round((avg/items.length) *100)/100;
+  };
+  $scope.min = (items) => {
+    let min;
+    items.forEach((item) => {
+      min = (!min || min > item.amount) ? item.amount : min;
+    });
+    return min;
+  };
+  $scope.max = (items) => {
+    let max;
+    items.forEach((item) => {
+      max = (!max || max < item.amount) ? item.amount : max;
+    });
+    return max;
   };
 
   let getData = () => {
@@ -202,5 +243,20 @@ angular.module('mirCtrls', [])
   $scope.selectLocale = (locale) => {
     $translate.use(locale);
     $scope.currentLocale = locale;
+  };
+})
+
+.filter('refineFilter', function() {
+  return function(items, refiner) {
+    var filtered = [];
+    angular.forEach(items, function(item) {
+      if((refiner.post.length === 0 || refiner.post.indexOf(item.post) > -1) &&
+         (refiner.company.length === 0 || refiner.company.indexOf(item.company) > -1) &&
+         (!refiner.from || item.date >= refiner.from) &&
+         (!refiner.to || item.date <= refiner.to)) {
+        filtered.push(item);
+    }
+    });
+    return filtered;
   };
 });

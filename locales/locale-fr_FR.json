@@ -43,6 +43,7 @@
     "TITLE"         : "Compte",
     "BALANCE"       : "Solde actuel",
     "BUTTON_HISTORY": "Historique",
+    "BUTTON_REFINE" : "Filtrer",
     "BUTTON_CHARTS" : "Visualisation",
     "HISTORY": {
       "DATE"   : "Date",
@@ -53,6 +54,13 @@
       "ADD"    : "@:ADD",
       "REMOVE" : "@:REMOVE",
       "INIT"   : "Solde initial"
+    },
+    "REFINE": {
+      "AVERAGE"   : "Moyenne",
+      "MIN"       : "Min",
+      "MAX"       : "Max",
+      "DATE_FROM" : "Du...",
+      "DATE_TO"   : "Au..."
     },
     "CONFIG": {
       "HELP_TEXT"         : "Vous pouvez ajuster les paliers d'avertissement de ce compte en les paramétrant.",

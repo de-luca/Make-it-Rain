@@ -38,57 +38,125 @@
   <div class="col-md-12">
     <div class="form-group btn-group btn-group-justified">
       <label class="btn btn-default" ng-model="show" uib-btn-radio="'history'">{{'ACCOUNT.BUTTON_HISTORY'|translate}}</label>
+      <label class="btn btn-default" ng-model="show" uib-btn-radio="'refine'">{{'ACCOUNT.BUTTON_REFINE'|translate}}</label>
       <label class="btn btn-default" ng-model="show" uib-btn-radio="'visual'">{{'ACCOUNT.BUTTON_CHARTS'|translate}}</label>
       <label class="btn btn-default" ng-model="show" uib-btn-radio="'config'"><i class="fa fa-fw fa-cogs"></i></label>
     </div>
   </div>
 </div>
 
-<div class="row" ng-if="show === 'history'">
-  <div class="col-md-12">
-    <table class="table table-hover table-condensed">
-      <thead>
-        <tr>
-          <th><a ng-click="order('date')">{{'ACCOUNT.HISTORY.DATE'|translate}}</a></th>
-          <th class="text-center"><a ng-click="order('amount')">{{'ACCOUNT.HISTORY.AMOUNT'|translate}}</a></th>
-          <th class="text-center"><a ng-click="order('post')">{{'ACCOUNT.HISTORY.POST'|translate}}</a></th>
-          <th class="text-center"><a ng-click="order('company')">{{'ACCOUNT.HISTORY.COMPANY'|translate}}</a></th>
-          <th class="text-right">{{'ACCOUNT.HISTORY.ACTIONS'|translate}}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="active">
-          <td>
-            <input type="text" ng-model="newMove.date" class="input-sm form-control" placeholder="{{'ACCOUNT.HISTORY.DATE'|translate}}" uib-datepicker-popup="dd/MM/yyyy" is-open="open" show-button-bar="false" ng-focus="open=true">
-          </td>
-          <td>
-            <input type="text" ng-model="newMove.amount" class="input-sm form-control" placeholder="{{'ACCOUNT.HISTORY.AMOUNT'|translate}}">
-          </td>
-          <td>
-            <input type="text" ng-model="newMove.post" uib-typeahead="post for post in data.posts | filter:$viewValue | limitTo:8" class="input-sm form-control" placeholder="{{'ACCOUNT.HISTORY.POST'|translate}}">
-          </td>
-          <td>
-            <input type="text" ng-model="newMove.company" uib-typeahead="comp for comp in data.comps | filter:$viewValue | limitTo:8" class="input-sm form-control" placeholder="{{'ACCOUNT.HISTORY.COMPANY'|translate}}">
-          </td>
-          <td>
-            <button type="button" ng-disabled="!newMove.date || !newMove.amount" ng-click="insert()" class="btn btn-default btn-block btn-sm">{{'ACCOUNT.HISTORY.ADD'|translate}}</button>
-          </td>
-        </tr>
-        <tr ng-repeat="move in data.acc.moves | orderBy:predicate:reverse"
-            ng-class="{'success': move.amount > 0, 'warning': move.amount < 0}">
-          <td>{{move.date|date:'dd-MM-yyyy'}}</td>
-          <td class="text-center">{{move.amount|currency:''}} €</td>
-          <td class="text-center">{{move.post}}</td>
-          <td class="text-center">{{move.company}}</td>
-          <td class="text-right">
-            <button type="button" ng-click="remove(move)" class="btn btn-danger btn-block btn-xs"><i class="fa fa-fw fa-remove"></i>{{'ACCOUNT.HISTORY.REMOVE'|translate}}</button>
-          </td>
-        </tr>
-        <tr class="active">
-          <td colspan="5" class="text-center"><strong>{{'ACCOUNT.HISTORY.INIT'|translate}}: {{data.acc.init|currency:''}} €</strong></td>
-        </tr>
-      </tbody>
-    </table>
+<div ng-if="show === 'history'">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-hover table-condensed">
+        <thead>
+          <tr>
+            <th><a ng-click="order('date')">{{'ACCOUNT.HISTORY.DATE'|translate}}</a></th>
+            <th class="text-center"><a ng-click="order('amount')">{{'ACCOUNT.HISTORY.AMOUNT'|translate}}</a></th>
+            <th class="text-center"><a ng-click="order('post')">{{'ACCOUNT.HISTORY.POST'|translate}}</a></th>
+            <th class="text-center"><a ng-click="order('company')">{{'ACCOUNT.HISTORY.COMPANY'|translate}}</a></th>
+            <th class="text-right">{{'ACCOUNT.HISTORY.ACTIONS'|translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="active">
+            <td>
+              <input type="text" ng-model="newMove.date" class="input-sm form-control" placeholder="{{'ACCOUNT.HISTORY.DATE'|translate}}" uib-datepicker-popup="dd/MM/yyyy" is-open="open" show-button-bar="false" ng-focus="open=true">
+            </td>
+            <td>
+              <input type="text" ng-model="newMove.amount" class="input-sm form-control" placeholder="{{'ACCOUNT.HISTORY.AMOUNT'|translate}}">
+            </td>
+            <td>
+              <input type="text" ng-model="newMove.post" uib-typeahead="post for post in data.posts | filter:$viewValue | limitTo:8" class="input-sm form-control" placeholder="{{'ACCOUNT.HISTORY.POST'|translate}}">
+            </td>
+            <td>
+              <input type="text" ng-model="newMove.company" uib-typeahead="comp for comp in data.comps | filter:$viewValue | limitTo:8" class="input-sm form-control" placeholder="{{'ACCOUNT.HISTORY.COMPANY'|translate}}">
+            </td>
+            <td>
+              <button type="button" ng-disabled="!newMove.date || !newMove.amount" ng-click="insert()" class="btn btn-default btn-block btn-sm">{{'ACCOUNT.HISTORY.ADD'|translate}}</button>
+            </td>
+          </tr>
+          <tr ng-repeat="move in data.acc.moves | orderBy:predicate:reverse"
+              ng-class="{'success': move.amount > 0, 'warning': move.amount < 0}">
+            <td>{{move.date|date:'dd-MM-yyyy'}}</td>
+            <td class="text-center">{{move.amount|currency:''}} €</td>
+            <td class="text-center">{{move.post}}</td>
+            <td class="text-center">{{move.company}}</td>
+            <td class="text-right">
+              <button type="button" ng-click="remove(move)" class="btn btn-danger btn-block btn-xs"><i class="fa fa-fw fa-remove"></i>{{'ACCOUNT.HISTORY.REMOVE'|translate}}</button>
+            </td>
+          </tr>
+          <tr class="active">
+            <td colspan="5" class="text-center"><strong>{{'ACCOUNT.HISTORY.INIT'|translate}}: {{data.acc.init|currency:''}} €</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div ng-if="show === 'refine'">
+  <div class="row">
+    <div class="col-xs-2">
+      <div class="form-group">
+        <div class="btn-group-vertical btn-block">
+          <label ng-repeat="post in data.posts" class="btn btn-sm btn-default" ng-change="refinePost(post)" ng-model="__c" uib-btn-checkbox>{{post}}</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="btn-group-vertical btn-block">
+          <label ng-repeat="comp in data.comps" class="btn btn-sm btn-default" ng-change="refineComp(comp)" ng-model="__c" uib-btn-checkbox>{{comp}}</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="text" ng-model="refine.from" class="input-sm form-control" placeholder="{{'ACCOUNT.REFINE.DATE_FROM'|translate}}" uib-datepicker-popup="dd/MM/yyyy" is-open="from" show-button-bar="false" ng-focus="from=true">
+      </div>
+      <div class="form-group">
+        <input type="text" ng-model="refine.to" class="input-sm form-control" placeholder="{{'ACCOUNT.REFINE.DATE_TO'|translate}}" uib-datepicker-popup="dd/MM/yyyy" is-open="to" show-button-bar="false" ng-focus="to=true">
+      </div>
+    </div>
+    <div class="col-xs-10">
+      <div class="row text-center">
+        <div class="col-xs-4">
+          <p class="well well-sm">
+            <strong>{{'ACCOUNT.REFINE.AVERAGE'|translate}}</strong><br>
+            {{avg(results)|currency:''}} €
+          </p>
+        </div>
+        <div class="col-xs-4">
+          <p class="well well-sm">
+            <strong>{{'ACCOUNT.REFINE.MIN'|translate}}</strong><br>
+            {{min(results)|currency:''}} €
+          </p>
+        </div>
+        <div class="col-xs-4">
+          <p class="well well-sm">
+            <strong>{{'ACCOUNT.REFINE.MAX'|translate}}</strong><br>
+            {{max(results)|currency:''}} €
+          </p>
+        </div>
+      </div>
+      <table class="table table-hover table-condensed">
+        <thead>
+          <tr>
+            <th><a ng-click="order('date')">{{'ACCOUNT.HISTORY.DATE'|translate}}</a></th>
+            <th class="text-center"><a ng-click="order('amount')">{{'ACCOUNT.HISTORY.AMOUNT'|translate}}</a></th>
+            <th class="text-center"><a ng-click="order('post')">{{'ACCOUNT.HISTORY.POST'|translate}}</a></th>
+            <th class="text-center"><a ng-click="order('company')">{{'ACCOUNT.HISTORY.COMPANY'|translate}}</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="move in data.acc.moves | orderBy:predicate:reverse | refineFilter:refine as results"
+              ng-class="{'success': move.amount > 0, 'warning': move.amount < 0}">
+            <td>{{move.date|date:'dd-MM-yyyy'}}</td>
+            <td class="text-center">{{move.amount|currency:''}} €</td>
+            <td class="text-center">{{move.post}}</td>
+            <td class="text-center">{{move.company}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
