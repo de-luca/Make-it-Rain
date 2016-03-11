@@ -46,7 +46,7 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="list-group">
-      <a ng-repeat="acc in accounts" href="#/account/{{acc._id}}" class="list-group-item">
+      <a ng-repeat="acc in accounts | orderBy:'name'" href="#/account/{{acc._id}}" class="list-group-item">
         <div class="row"
              ng-class="{'text-info': acc.balance > acc.thresholds.ok,
                         'text-success': acc.balance > acc.thresholds.warning && acc.balance < acc.thresholds.ok,
@@ -77,7 +77,7 @@
             <input type="text" ng-model="newAccount.init" class="input-sm form-control" placeholder="{{'OVERVIEW.FORM.INIT'|translate}}" required>
           </div>
           <div class="col-xs-4">
-            <button type="button" ng-disabled="!newAccount.init || !newAccount.name" ng-click="insert()" class="btn btn-default btn-block btn-sm">{{'OVERVIEW.FORM.SUBMIT'|translate}}</button>
+            <button type="button" ng-disabled="valid()" ng-click="insert()" class="btn btn-default btn-block btn-sm">{{'OVERVIEW.FORM.SUBMIT'|translate}}</button>
           </div>
         </div>
       </li>

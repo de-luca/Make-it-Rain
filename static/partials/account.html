@@ -73,7 +73,7 @@
               <input type="text" ng-model="newMove.company" uib-typeahead="comp for comp in data.comps | filter:$viewValue | limitTo:8" class="input-sm form-control" placeholder="{{'ACCOUNT.HISTORY.COMPANY'|translate}}">
             </td>
             <td>
-              <button type="button" ng-disabled="!newMove.date || !newMove.amount" ng-click="insert()" class="btn btn-default btn-block btn-sm">{{'ACCOUNT.HISTORY.ADD'|translate}}</button>
+              <button type="button" ng-disabled="valid()" ng-click="insert()" class="btn btn-default btn-block btn-sm">{{'ACCOUNT.HISTORY.ADD'|translate}}</button>
             </td>
           </tr>
           <tr ng-repeat="move in data.acc.moves | orderBy:predicate:reverse">
@@ -179,8 +179,7 @@
   <div class="row form-group">
     <form name="thresholdsForm">
       <div class="col-xs-4">
-        <div class="form-group has-feedback"
-             ng-class="{'has-success': thresholdsForm.critical.$valid, 'has-error': !thresholdsForm.critical.$valid}">
+        <div class="form-group has-feedback">
           <label class="text-danger">{{'ACCOUNT.CONFIG.CRITICAL_THRESHOLD'|translate}}</label>
           <input type="number"
                  name="critical"
@@ -192,13 +191,13 @@
                  placeholder="{{'ACCOUNT.CONFIG.CRITICAL_THRESHOLD'|translate}}"
                  required>
           <i class="fa fa-fw form-control-feedback"
-             ng-class="{'fa-check': thresholdsForm.critical.$valid, 'fa-times': !thresholdsForm.critical.$valid}"
+             ng-class="{'fa-check text-success': thresholdsForm.critical.$valid,
+                        'fa-times text-danger': !thresholdsForm.critical.$valid}"
              aria-hidden="true"></i>
         </div>
       </div>
       <div class="col-xs-4">
-        <div class="form-group has-feedback"
-             ng-class="{'has-success': thresholdsForm.warning.$valid, 'has-error': !thresholdsForm.warning.$valid}">
+        <div class="form-group has-feedback">
           <label class="text-warning">{{'ACCOUNT.CONFIG.WARNING_THRESHOLD'|translate}}</label>
           <input type="number"
                  name="warning"
@@ -210,14 +209,14 @@
                  class="form-control input-sm"
                  placeholder="{{'ACCOUNT.CONFIG.WARNING_THRESHOLD'|translate}}"
                  required>
-                 <i class="fa fa-fw form-control-feedback"
-                    ng-class="{'fa-check': thresholdsForm.warning.$valid, 'fa-times': !thresholdsForm.warning.$valid}"
-                    aria-hidden="true"></i>
+          <i class="fa fa-fw form-control-feedback"
+             ng-class="{'fa-check text-success': thresholdsForm.warning.$valid,
+                        'fa-times text-danger' : !thresholdsForm.warning.$valid}"
+             aria-hidden="true"></i>
         </div>
       </div>
       <div class="col-xs-4">
-        <div class="form-group has-feedback"
-             ng-class="{'has-success': thresholdsForm.ok.$valid, 'has-error': !thresholdsForm.ok.$valid}">
+        <div class="form-group has-feedback">
           <label class="text-success">{{'ACCOUNT.CONFIG.OK_THRESHOLD'|translate}}</label>
           <input type="number"
                  name="ok"
@@ -228,9 +227,10 @@
                  class="form-control input-sm"
                  placeholder="{{'ACCOUNT.CONFIG.OK_THRESHOLD'|translate}}"
                  required>
-                 <i class="fa fa-fw form-control-feedback"
-                    ng-class="{'fa-check': thresholdsForm.ok.$valid, 'fa-times': !thresholdsForm.ok.$valid}"
-                    aria-hidden="true"></i>
+          <i class="fa fa-fw form-control-feedback"
+             ng-class="{'fa-check text-success': thresholdsForm.ok.$valid,
+                        'fa-times text-danger' : !thresholdsForm.ok.$valid}"
+             aria-hidden="true"></i>
         </div>
 
       </div>
