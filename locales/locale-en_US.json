@@ -50,7 +50,6 @@
       "AMOUNT" : "Amount",
       "POST"   : "Post",
       "COMPANY": "Company",
-      "ACTIONS": "Actions",
       "ADD"    : "@:ADD",
       "REMOVE" : "@:REMOVE",
       "INIT"   : "Initial balance"
