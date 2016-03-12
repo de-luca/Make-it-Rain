@@ -11,8 +11,8 @@
     </p>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-default btn-sm" type="button" ng-click="cancel()">{{'HISTORY.MODAL.DELETE.CANCEL'|translate}}</button>
-    <button class="btn btn-primary btn-sm" type="button" ng-click="ok()">{{'HISTORY.MODAL.DELETE.OK'|translate}}</button>
+    <button class="btn btn-default btn-sm" type="button" ng-click="cancel()">{{'ACCOUNT.MODAL.DELETE.CANCEL'|translate}}</button>
+    <button class="btn btn-primary btn-sm" type="button" ng-click="ok()">{{'ACCOUNT.MODAL.DELETE.OK'|translate}}</button>
   </div>
 </script>
 <!-- !Delete Modal -->
@@ -22,10 +22,10 @@
     <h3>
       {{'ACCOUNT.TITLE'|translate}} - <i>{{data.acc.name}}</i>
       <small>{{'ACCOUNT.BALANCE'|translate}}:
-        <span ng-class="{'text-info': data.acc.balance > data.acc.thresholds.ok,
-                         'text-success': data.acc.balance < data.acc.thresholds.ok,
-                         'text-warning': data.acc.balance < data.acc.thresholds.warning,
-                         'text-danger': data.acc.balance < data.acc.thresholds.critical}">
+        <span ng-class="{'text-info':    data.acc.balance > data.acc.thresholds.ok,
+                         'text-success': data.acc.balance > data.acc.thresholds.warning && data.acc.balance < data.acc.thresholds.ok,
+                         'text-warning': data.acc.balance > data.acc.thresholds.critical && data.acc.balance < data.acc.thresholds.warning,
+                         'text-danger':  data.acc.balance < data.acc.thresholds.critical}">
           <strong>{{data.acc.balance|currency:''}} €</strong>
         </span>
       </small>
@@ -35,7 +35,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-xs-12">
     <div class="form-group btn-group btn-group-justified">
       <label class="btn btn-default" ng-model="show" uib-btn-radio="'history'">{{'ACCOUNT.BUTTON_HISTORY'|translate}}</label>
       <label class="btn btn-default" ng-model="show" uib-btn-radio="'refine'">{{'ACCOUNT.BUTTON_REFINE'|translate}}</label>
@@ -47,15 +47,15 @@
 
 <div ng-show="show === 'history'">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-xs-12">
       <table class="table table-hover table-condensed">
         <thead>
           <tr>
-            <th><a ng-click="order('date')">{{'ACCOUNT.HISTORY.DATE'|translate}}</a></th>
+            <th class="text-center"><a ng-click="order('date')">{{'ACCOUNT.HISTORY.DATE'|translate}}</a></th>
             <th class="text-center"><a ng-click="order('amount')">{{'ACCOUNT.HISTORY.AMOUNT'|translate}}</a></th>
             <th class="text-center"><a ng-click="order('post')">{{'ACCOUNT.HISTORY.POST'|translate}}</a></th>
             <th class="text-center"><a ng-click="order('company')">{{'ACCOUNT.HISTORY.COMPANY'|translate}}</a></th>
-            <th class="text-right">{{'ACCOUNT.HISTORY.ACTIONS'|translate}}</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -73,13 +73,12 @@
               <input type="text" ng-model="newMove.company" uib-typeahead="comp for comp in data.comps | filter:$viewValue | limitTo:8" class="input-sm form-control" placeholder="{{'ACCOUNT.HISTORY.COMPANY'|translate}}">
             </td>
             <td>
-              <button type="button" ng-disabled="!newMove.date || !newMove.amount" ng-click="insert()" class="btn btn-default btn-block btn-sm">{{'ACCOUNT.HISTORY.ADD'|translate}}</button>
+              <button type="button" ng-disabled="valid()" ng-click="insert()" class="btn btn-default btn-block btn-sm">{{'ACCOUNT.HISTORY.ADD'|translate}}</button>
             </td>
           </tr>
-          <tr ng-repeat="move in data.acc.moves | orderBy:predicate:reverse"
-              ng-class="{'success': move.amount > 0, 'warning': move.amount < 0}">
-            <td>{{move.date|date:'dd-MM-yyyy'}}</td>
-            <td class="text-center">{{move.amount|currency:''}} €</td>
+          <tr ng-repeat="move in data.acc.moves | orderBy:predicate:reverse">
+            <td class="text-center">{{move.date|date:'dd-MM-yyyy'}}</td>
+            <td class="text-center" ng-class="{'text-success': move.amount > 0, 'text-danger': move.amount < 0}"><strong>{{move.amount|currency:''}} €</strong></td>
             <td class="text-center">{{move.post}}</td>
             <td class="text-center">{{move.company}}</td>
             <td class="text-right">
@@ -87,7 +86,7 @@
             </td>
           </tr>
           <tr class="active">
-            <td colspan="5" class="text-center"><strong>{{'ACCOUNT.HISTORY.INIT'|translate}}: {{data.acc.init|currency:''}} €</strong></td>
+            <td colspan="5"><em>{{'ACCOUNT.HISTORY.INIT'|translate}}: {{data.acc.init|currency:''}} €</em></td>
           </tr>
         </tbody>
       </table>
@@ -143,17 +142,16 @@
       <table class="table table-hover table-condensed">
         <thead>
           <tr>
-            <th><a ng-click="order('date')">{{'ACCOUNT.HISTORY.DATE'|translate}}</a></th>
+            <th class="text-center"><a ng-click="order('date')">{{'ACCOUNT.HISTORY.DATE'|translate}}</a></th>
             <th class="text-center"><a ng-click="order('amount')">{{'ACCOUNT.HISTORY.AMOUNT'|translate}}</a></th>
             <th class="text-center"><a ng-click="order('post')">{{'ACCOUNT.HISTORY.POST'|translate}}</a></th>
             <th class="text-center"><a ng-click="order('company')">{{'ACCOUNT.HISTORY.COMPANY'|translate}}</a></th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="move in data.acc.moves | orderBy:predicate:reverse | refineFilter:refine as results"
-              ng-class="{'success': move.amount > 0, 'warning': move.amount < 0}">
-            <td>{{move.date|date:'dd-MM-yyyy'}}</td>
-            <td class="text-center">{{move.amount|currency:''}} €</td>
+          <tr ng-repeat="move in data.acc.moves | orderBy:predicate:reverse | refineFilter:refine as results">
+            <td class="text-center">{{move.date|date:'dd-MM-yyyy'}}</td>
+            <td class="text-center" ng-class="{'text-success': move.amount > 0, 'text-danger': move.amount < 0}"><strong>{{move.amount|currency:''}} €</strong></td>
             <td class="text-center">{{move.post}}</td>
             <td class="text-center">{{move.company}}</td>
           </tr>
@@ -181,8 +179,7 @@
   <div class="row form-group">
     <form name="thresholdsForm">
       <div class="col-xs-4">
-        <div class="form-group has-feedback"
-             ng-class="{'has-success': thresholdsForm.critical.$valid, 'has-error': !thresholdsForm.critical.$valid}">
+        <div class="form-group has-feedback">
           <label class="text-danger">{{'ACCOUNT.CONFIG.CRITICAL_THRESHOLD'|translate}}</label>
           <input type="number"
                  name="critical"
@@ -194,13 +191,13 @@
                  placeholder="{{'ACCOUNT.CONFIG.CRITICAL_THRESHOLD'|translate}}"
                  required>
           <i class="fa fa-fw form-control-feedback"
-             ng-class="{'fa-check': thresholdsForm.critical.$valid, 'fa-times': !thresholdsForm.critical.$valid}"
+             ng-class="{'fa-check text-success': thresholdsForm.critical.$valid,
+                        'fa-times text-danger': !thresholdsForm.critical.$valid}"
              aria-hidden="true"></i>
         </div>
       </div>
       <div class="col-xs-4">
-        <div class="form-group has-feedback"
-             ng-class="{'has-success': thresholdsForm.warning.$valid, 'has-error': !thresholdsForm.warning.$valid}">
+        <div class="form-group has-feedback">
           <label class="text-warning">{{'ACCOUNT.CONFIG.WARNING_THRESHOLD'|translate}}</label>
           <input type="number"
                  name="warning"
@@ -212,14 +209,14 @@
                  class="form-control input-sm"
                  placeholder="{{'ACCOUNT.CONFIG.WARNING_THRESHOLD'|translate}}"
                  required>
-                 <i class="fa fa-fw form-control-feedback"
-                    ng-class="{'fa-check': thresholdsForm.warning.$valid, 'fa-times': !thresholdsForm.warning.$valid}"
-                    aria-hidden="true"></i>
+          <i class="fa fa-fw form-control-feedback"
+             ng-class="{'fa-check text-success': thresholdsForm.warning.$valid,
+                        'fa-times text-danger' : !thresholdsForm.warning.$valid}"
+             aria-hidden="true"></i>
         </div>
       </div>
       <div class="col-xs-4">
-        <div class="form-group has-feedback"
-             ng-class="{'has-success': thresholdsForm.ok.$valid, 'has-error': !thresholdsForm.ok.$valid}">
+        <div class="form-group has-feedback">
           <label class="text-success">{{'ACCOUNT.CONFIG.OK_THRESHOLD'|translate}}</label>
           <input type="number"
                  name="ok"
@@ -230,9 +227,10 @@
                  class="form-control input-sm"
                  placeholder="{{'ACCOUNT.CONFIG.OK_THRESHOLD'|translate}}"
                  required>
-                 <i class="fa fa-fw form-control-feedback"
-                    ng-class="{'fa-check': thresholdsForm.ok.$valid, 'fa-times': !thresholdsForm.ok.$valid}"
-                    aria-hidden="true"></i>
+          <i class="fa fa-fw form-control-feedback"
+             ng-class="{'fa-check text-success': thresholdsForm.ok.$valid,
+                        'fa-times text-danger' : !thresholdsForm.ok.$valid}"
+             aria-hidden="true"></i>
         </div>
 
       </div>

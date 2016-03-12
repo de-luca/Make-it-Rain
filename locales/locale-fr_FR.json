@@ -50,7 +50,6 @@
       "AMOUNT" : "Montant",
       "POST"   : "Poste",
       "COMPANY": "Établissement",
-      "ACTIONS": "Actions",
       "ADD"    : "@:ADD",
       "REMOVE" : "@:REMOVE",
       "INIT"   : "Solde initial"

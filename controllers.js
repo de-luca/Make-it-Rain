@@ -30,6 +30,19 @@ angular.module('mirCtrls', [])
     $scope.accounts = docs;
   });
 
+  $scope.newAccount = {
+    name: undefined,
+    init: undefined
+  };
+
+  $scope.valid = () => {
+    return (
+      !$scope.newAccount.name ||
+      !$scope.newAccount.init ||
+      !(!isNaN(parseFloat($scope.newAccount.init)) && isFinite($scope.newAccount.init))
+    );
+  };
+
   $scope.insert = () => {
     let acc = {
       _id: undefined,
@@ -46,7 +59,10 @@ angular.module('mirCtrls', [])
     };
     db.insert(acc, (err, inserted) => {
       $scope.new = false;
-      $scope.newAccount = undefined;
+      $scope.newAccount = {
+        name: undefined,
+        init: undefined
+      };
       getData().then((docs) => {
         $scope.accounts = docs;
       }, (err) => {
@@ -98,13 +114,23 @@ angular.module('mirCtrls', [])
   $scope.show = 'history';
   $scope.results = [];
   $scope.newMove = {
-    date: new Date()
+    date: new Date(),
+    amount: undefined
   };
 
   $scope.refine = {
     post: [],
     company: []
   };
+
+  $scope.valid = () => {
+    return (
+      !$scope.newMove.date ||
+      !$scope.newMove.amount ||
+      !(!isNaN(parseFloat($scope.newMove.amount)) && isFinite($scope.newMove.amount))
+    );
+  };
+
   $scope.refinePost = (name) => {
     let index;
     if((index = $scope.refine.post.indexOf(name)) > -1)
