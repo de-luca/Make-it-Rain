@@ -232,9 +232,18 @@ angular.module('mirCtrls', [])
     }
   };
 
-  /* WIP */
   $scope.remove = (id) => {
-    console.log(id);
+    var modalInstance = $uibModal.open({
+      animation: true,
+      templateUrl: 'deleteModal.html',
+      controller: 'deleteModalCtrl'
+    });
+    modalInstance.result.then(() => {
+      delete id.$$hashKey;
+      db.update({_id: $routeParams.id}, {$inc: {balance: -id.amount}, $pull: {moves: id}}, {returnUpdatedDocs: true}, (err, num, up) => {
+        $scope.data.acc = up;
+      });
+    });
   };
 
   $scope.updateTS = (valid) => {
