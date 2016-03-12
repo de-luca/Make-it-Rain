@@ -49,9 +49,9 @@
       <a ng-repeat="acc in accounts | orderBy:'name'" href="#/account/{{acc._id}}" class="list-group-item">
         <div class="row"
              ng-class="{'text-info': acc.balance > acc.thresholds.ok,
-                        'text-success': acc.balance > acc.thresholds.warning && acc.balance < acc.thresholds.ok,
-                        'text-warning': acc.balance > acc.thresholds.critical && acc.balance < acc.thresholds.warning,
-                        'text-danger': acc.balance < acc.thresholds.critical}">
+                        'text-success': acc.balance > acc.thresholds.warning && acc.balance <= acc.thresholds.ok,
+                        'text-warning': acc.balance > acc.thresholds.critical && acc.balance <= acc.thresholds.warning,
+                        'text-danger': acc.balance <= acc.thresholds.critical}">
           <div class="col-xs-4">
             <i class="fa fa-fw"
                ng-class="{'fa-exclamation': acc.balance > acc.thresholds.critical && acc.balance < acc.thresholds.warning,
