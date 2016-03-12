@@ -72,7 +72,7 @@
         "TITLE"  : "Suppression d'opération",
         "BODY"   : "Etes-vous sûr de vouloir supprimer cette opération ?",
         "CANCEL" : "@:CANCEL",
-        "CONFIRM": "@:CONFIRM"
+        "OK": "@:CONFIRM"
       }
     }
   }
