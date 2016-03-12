@@ -7,6 +7,8 @@ const BrowserWindow = require('browser-window');
 let win;
 
 app.on('ready', function () {
+  require(__dirname+'/menu.js').build();
+
   let mainWindowState = windowStateKeeper({
     defaultWidth: 800,
     defaultHeight: 500
