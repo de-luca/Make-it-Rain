@@ -23,9 +23,9 @@
       {{'ACCOUNT.TITLE'|translate}} - <i>{{data.acc.name}}</i>
       <small>{{'ACCOUNT.BALANCE'|translate}}:
         <span ng-class="{'text-info':    data.acc.balance > data.acc.thresholds.ok,
-                         'text-success': data.acc.balance > data.acc.thresholds.warning && data.acc.balance < data.acc.thresholds.ok,
-                         'text-warning': data.acc.balance > data.acc.thresholds.critical && data.acc.balance < data.acc.thresholds.warning,
-                         'text-danger':  data.acc.balance < data.acc.thresholds.critical}">
+                         'text-success': data.acc.balance > data.acc.thresholds.warning && data.acc.balance <= data.acc.thresholds.ok,
+                         'text-warning': data.acc.balance > data.acc.thresholds.critical && data.acc.balance <= data.acc.thresholds.warning,
+                         'text-danger':  data.acc.balance <= data.acc.thresholds.critical}">
           <strong>{{data.acc.balance|currency:''}} €</strong>
         </span>
       </small>
