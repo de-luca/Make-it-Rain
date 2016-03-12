@@ -1,11 +1,39 @@
 {
-  "name": "Make-it-Rain",
+  "name": "make-it-rain",
+  "productName": "Make-it-Rain",
   "version": "0.0.1",
   "description": "A simple money manager for simple people",
+  "license": "BSD-2-Clause",
   "main": "./main.js",
-  "scripts": {
-    "start": "electron ./"
+  "author": {
+    "name": "de-luca",
+    "email": "dev@de-luca.io",
+    "url": "de-luca.io"
   },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/de-luca/Make-it-Rain.git"
+  },
+  "config": {
+    "ignore": "--ignore=releases --asar",
+    "platform": "--platform=all --arch=x64 --prune",
+    "version": "--version=0.36.9 --app-bundle-id=io.de-luca.make-it-rain"
+  },
+  "scripts": {
+    "start": "electron ./",
+    "build": "electron-packager . $npm_package_productName --out=./releases --overwrite --app-version=$npm_package_version $npm_package_config_platform $npm_package_config_version $npm_package_config_ignore",
+    "package": "cd releases && zip -ryXq9 ${npm_package_productName}-darwin-x64-${npm_package_version}.zip ${npm_package_productName}-darwin-x64/${npm_package_productName}.app && tar czvf ${npm_package_productName}-linux-x64-${npm_package_version}.tar.gz ${npm_package_productName}-linux-x64 && zip -ryXq9 ${npm_package_productName}-win32-x64-${npm_package_version}.zip ${npm_package_productName}-win32-x64"
+  },
+  "files": [
+    "main.js",
+    "menu.js",
+    "index.html",
+    "app.js",
+    "controller.js",
+    "static/*",
+    "locales/*",
+    "node_modules/*"
+  ],
   "dependencies": {
     "angular": "^1.4.8",
     "angular-bootstrap-datetimepicker": "^0.4.0",
@@ -23,6 +51,7 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "electron-prebuilt": "^0.36.9"
+    "electron-prebuilt": "^0.36.9",
+    "electron-packager": "^5.2.0"
   }
 }
