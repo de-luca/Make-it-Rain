@@ -72,7 +72,7 @@
         "TITLE"  : "Transaction removal",
         "BODY"   : "Are you sure you want to remove this transaction?",
         "CANCEL" : "@:CANCEL",
-        "CONFIRM": "@:CONFIRM"
+        "OK": "@:CONFIRM"
       }
     }
   }
