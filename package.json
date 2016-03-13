@@ -21,7 +21,7 @@
   "scripts": {
     "start": "electron ./",
     "build": "electron-packager . $npm_package_productName --out=./dist --overwrite --ignore='^/db$' --ignore='^/dist$' --app-version=$npm_package_version $npm_package_config_platform $npm_package_config_version",
-    "package": "cd releases && zip -ryXq9 ${npm_package_productName}-darwin-x64-${npm_package_version}.zip ${npm_package_productName}-darwin-x64/${npm_package_productName}.app && tar czvf ${npm_package_productName}-linux-x64-${npm_package_version}.tar.gz ${npm_package_productName}-linux-x64 && zip -ryXq9 ${npm_package_productName}-win32-x64-${npm_package_version}.zip ${npm_package_productName}-win32-x64"
+    "package": "cd dist && zip -ryXq9 ${npm_package_productName}-darwin-x64-${npm_package_version}.zip ${npm_package_productName}-darwin-x64/${npm_package_productName}.app && tar czvf ${npm_package_productName}-linux-x64-${npm_package_version}.tar.gz ${npm_package_productName}-linux-x64 && zip -ryXq9 ${npm_package_productName}-win32-x64-${npm_package_version}.zip ${npm_package_productName}-win32-x64"
   },
   "files": [
     "main.js",
