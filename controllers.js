@@ -108,66 +108,10 @@ angular.module('mirCtrls', [])
   };
 })
 
-.controller('accountCtrl', function($scope, $q, $routeParams, $uibModal) {
-  $scope.predicate = 'date';
-  $scope.reverse = true;
+.controller('accountCtrl', function($scope, $q, $routeParams) {
   $scope.show = 'history';
-  $scope.results = [];
-  $scope.newMove = {
-    date: new Date(),
-    amount: undefined
-  };
 
-  $scope.refine = {
-    post: [],
-    company: []
-  };
-
-  $scope.valid = () => {
-    return (
-      !$scope.newMove.date ||
-      !$scope.newMove.amount ||
-      !(!isNaN(parseFloat($scope.newMove.amount)) && isFinite($scope.newMove.amount))
-    );
-  };
-
-  $scope.refinePost = (name) => {
-    let index;
-    if((index = $scope.refine.post.indexOf(name)) > -1)
-      $scope.refine.post.splice(index, 1);
-    else
-      $scope.refine.post.push(name);
-  };
-  $scope.refineComp = (name) => {
-    let index;
-    if((index = $scope.refine.company.indexOf(name)) > -1)
-      $scope.refine.company.splice(index, 1);
-    else
-      $scope.refine.company.push(name);
-  };
-  $scope.avg = (items) => {
-    let avg = 0;
-    items.forEach((item) => {
-      avg += item.amount;
-    });
-    return Math.round((avg/items.length) *100)/100;
-  };
-  $scope.min = (items) => {
-    let min;
-    items.forEach((item) => {
-      min = (!min || min > item.amount) ? item.amount : min;
-    });
-    return min;
-  };
-  $scope.max = (items) => {
-    let max;
-    items.forEach((item) => {
-      max = (!max || max < item.amount) ? item.amount : max;
-    });
-    return max;
-  };
-
-  let getData = () => {
+  $scope.getData = () => {
     return $q((resolve, reject) => {
       let data = {};
       let proceed = _.after(3, () => {
@@ -189,29 +133,55 @@ angular.module('mirCtrls', [])
     });
   };
 
-  getData().then((data) => {
-    $scope.data = data;
+  $scope.getData().then((data) => {
+    $scope.account   = data.acc;
+    $scope.posts     = data.posts;
+    $scope.companies = data.comps;
   }, (err) => {
+    console.warn(err);
     throw err;
   });
+})
+
+.controller('accountHistoryCtrl', function($scope, $uibModal) {
+  $scope.predicate = 'date';
+  $scope.reverse = true;
+  $scope.newMove = {
+    date  : new Date(),
+    amount: undefined
+  };
 
   $scope.order = (predicate) => {
     $scope.predicate = predicate;
     $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : true;
   };
 
+  $scope.valid = () => {
+    return (
+      !$scope.newMove.date ||
+      !$scope.newMove.amount ||
+      !(!isNaN(parseFloat($scope.newMove.amount)) && isFinite($scope.newMove.amount))
+    );
+  };
+
   $scope.insert = () => {
     $scope.newMove.amount = parseFloat($scope.newMove.amount);
     let proceed = _.after(3, () => {
-      getData().then((data) => {
-        $scope.data = data;
+      $scope.$parent.getData().then((data) => {
+        $scope.$parent.account   = data.acc;
+        $scope.$parent.posts     = data.posts;
+        $scope.$parent.companies = data.comps;
         $scope.newMove = {
-          date: new Date()
+          date  : new Date(),
+          amount: undefined
         };
+      }, (err) => {
+        console.warn(err);
+        throw err;
       });
     });
 
-    db.update({_id: $routeParams.id}, {$push: {moves: $scope.newMove}, $inc: {balance: $scope.newMove.amount}}, {}, () => {
+    db.update({_id: $scope.$parent.account._id}, {$push: {moves: $scope.newMove}, $inc: {balance: $scope.newMove.amount}}, {}, () => {
       proceed();
     });
 
@@ -240,19 +210,71 @@ angular.module('mirCtrls', [])
     });
     modalInstance.result.then(() => {
       delete id.$$hashKey;
-      db.update({_id: $routeParams.id}, {$inc: {balance: -id.amount}, $pull: {moves: id}}, {returnUpdatedDocs: true}, (err, num, up) => {
-        $scope.data.acc = up;
+      db.update({_id: $scope.$parent.account._id}, {$inc: {balance: -id.amount}, $pull: {moves: id}}, {returnUpdatedDocs: true}, (err, num, up) => {
+        $scope.$parent.account = up;
+        $scope.$apply();
       });
     });
   };
+})
 
-  $scope.updateTS = (valid) => {
-    if(valid) {
-      db.update({_id: $routeParams.id}, {$set: {thresholds: $scope.data.acc.thresholds}});
-    }
+.controller('accountRefineCtrl', function($scope) {
+  $scope.results = [];
+  $scope.refine = {
+    post: [],
+    company: []
   };
 
+  $scope.order = (predicate) => {
+    $scope.predicate = predicate;
+    $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : true;
+  };
+
+  $scope.refinePost = (name) => {
+    let index;
+    if((index = $scope.refine.post.indexOf(name)) > -1)
+      $scope.refine.post.splice(index, 1);
+    else
+      $scope.refine.post.push(name);
+  };
+  $scope.refineComp = (name) => {
+    let index;
+    if((index = $scope.refine.company.indexOf(name)) > -1)
+      $scope.refine.company.splice(index, 1);
+    else
+      $scope.refine.company.push(name);
+  };
+
+  $scope.avg = (items) => {
+    let avg = 0;
+    items.forEach((item) => {
+      avg += item.amount;
+    });
+    return Math.round((avg/items.length) *100)/100;
+  };
+  $scope.min = (items) => {
+    let min;
+    items.forEach((item) => {
+      min = (!min || min > item.amount) ? item.amount : min;
+    });
+    return min;
+  };
+  $scope.max = (items) => {
+    let max;
+    items.forEach((item) => {
+      max = (!max || max < item.amount) ? item.amount : max;
+    });
+    return max;
+  };
 })
+.controller('accountConfigCtrl', function($scope) {
+  $scope.updateTS = (valid) => {
+    if(valid) {
+      db.update({_id: $scope.$parent.account._id}, {$set: {thresholds: $scope.$parent.account.thresholds}});
+    }
+  };
+})
+
 
 .controller('editModalCtrl', function($scope, $uibModalInstance) {
   $scope.ok = () => {
