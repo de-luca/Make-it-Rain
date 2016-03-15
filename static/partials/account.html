@@ -39,7 +39,6 @@
     <div class="form-group btn-group btn-group-justified">
       <label class="btn btn-default" ng-model="show" uib-btn-radio="'history'">{{'ACCOUNT.BUTTON_HISTORY'|translate}}</label>
       <label class="btn btn-default" ng-model="show" uib-btn-radio="'refine'">{{'ACCOUNT.BUTTON_REFINE'|translate}}</label>
-      <label class="btn btn-default" ng-model="show" uib-btn-radio="'visual'">{{'ACCOUNT.BUTTON_CHARTS'|translate}}</label>
       <label class="btn btn-default" ng-model="show" uib-btn-radio="'config'"><i class="fa fa-fw fa-cogs"></i></label>
     </div>
   </div>
@@ -157,25 +156,6 @@
           </tr>
         </tbody>
       </table>
-    </div>
-  </div>
-</div>
-
-<div ng-if="show === 'visual'" ng-controller="accountVisualCtrl">
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Balance evolution</h3>
-        </div>
-        <div class="panel-body">
-          <canvas height="80" id="evo" class="chart chart-line"
-                  chart-data="evo.data"
-                  chart-labels="evo.labels"
-                  chart-legend="false">
-          </canvas>
-        </div>
-      </div>
     </div>
   </div>
 </div>

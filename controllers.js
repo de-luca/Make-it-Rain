@@ -267,55 +267,6 @@ angular.module('mirCtrls', [])
     return max;
   };
 })
-
-.controller('accountVisualCtrl', function($scope) {
-  let moveOrder = (a, b) => {
-    if (a.date < b.date)
-      return -1;
-    if (a.date > b.date)
-      return 1;
-    return 0;
-  };
-
-  $scope.evo = {
-    labels: [],
-    data: [[]]
-  };
-
-  $scope.$watch('$parent.account.moves', () => {
-    if($scope.$parent.account) {
-      console.log("CHANGED");
-      $scope.$parent.account.moves.sort(moveOrder);
-
-      $scope.evo.labels = [];
-      $scope.evo.data[0] = [];
-
-      var i = 0;
-      var cumul = $scope.$parent.account.init;
-      var lDate = 'init';
-
-      $scope.evo.labels[i] = lDate;
-      $scope.evo.data[0][i] = cumul;
-
-      $scope.$parent.account.moves.forEach((cur) => {
-        cumul += cur.amount;
-        var fDate = ((cur.date.getDate() < 10) ? '0'+cur.date.getDate() : cur.date.getDate()) + '-' +
-                    ((cur.date.getMonth()+1 < 10) ? '0'+(cur.date.getMonth()+1) : cur.date.getMonth()+1) + '-' +
-                     (cur.date.getFullYear());
-
-        if(fDate !== lDate) {
-          i++;
-          lDate = fDate;
-          $scope.evo.labels[i] = fDate;
-          $scope.evo.data[0][i] = cumul;
-        } else {
-          $scope.evo.data[0][i] = cumul;
-        }
-      });
-    }
-  });
-})
-
 .controller('accountConfigCtrl', function($scope) {
   $scope.updateTS = (valid) => {
     if(valid) {
