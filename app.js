@@ -4,7 +4,6 @@ angular.module('mirApp', [
   'ngRoute',
   'mirCtrls',
   'ui.bootstrap',
-  'chart.js',
   'pascalprecht.translate'
 ])
 .factory('electronStorage', () => {
