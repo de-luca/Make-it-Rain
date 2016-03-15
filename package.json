@@ -11,8 +11,8 @@
     "url": "de-luca.io"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/de-luca/Make-it-Rain.git"
+    "type": "git",
+    "url": "https://github.com/de-luca/Make-it-Rain.git"
   },
   "config": {
     "platform": "--platform=all --arch=x64 --prune",

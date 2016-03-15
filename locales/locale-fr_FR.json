@@ -55,11 +55,12 @@
       "INIT"   : "Solde initial"
     },
     "REFINE": {
-      "AVERAGE"   : "Moyenne",
-      "MIN"       : "Min",
-      "MAX"       : "Max",
-      "DATE_FROM" : "Du...",
-      "DATE_TO"   : "Au..."
+      "TOGGLE_BUTTON": "Afficher/Cacher filtres",
+      "AVERAGE"      : "Moyenne",
+      "MIN"          : "Min",
+      "MAX"          : "Max",
+      "DATE_FROM"    : "Du...",
+      "DATE_TO"      : "Au..."
     },
     "CONFIG": {
       "HELP_TEXT"         : "Vous pouvez ajuster les paliers d'avertissement de ce compte en les paramétrant.",

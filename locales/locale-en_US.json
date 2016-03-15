@@ -55,11 +55,12 @@
       "INIT"   : "Initial balance"
     },
     "REFINE": {
-      "AVERAGE"   : "Average",
-      "MIN"       : "Min",
-      "MAX"       : "Max",
-      "DATE_FROM" : "Date from...",
-      "DATE_TO"   : "Date to..."
+      "TOGGLE_BUTTON": "Toggle filters",
+      "AVERAGE"      : "Average",
+      "MIN"          : "Min",
+      "MAX"          : "Max",
+      "DATE_FROM"    : "Date from...",
+      "DATE_TO"      : "Date to..."
     },
     "CONFIG": {
       "HELP_TEXT"         : "You can adjust warning thresholds for this account by indicating each of them.",
