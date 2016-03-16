@@ -302,7 +302,9 @@ angular.module('mirCtrls', [])
 
 .controller('topBarCtrl', function($scope, $route, $translate) {
   $scope.route = $route;
-  $scope.currentLocale = $translate.use();
+  $translate.onReady(() => {
+    $scope.currentLocale = $translate.proposedLanguage();
+  });
   $scope.selectLocale = (locale) => {
     $translate.use(locale);
     $scope.currentLocale = locale;
