@@ -5,8 +5,8 @@
   "ADD"    : "Add",
 
   "NAV": {
-    "BACK_TOOLTIP" : "Back to account list",
-    "LANGUAGE_TOOLTIP"  : "Language selection",
+    "BACK_TOOLTIP"      : "Back to account list",
+    "LANGUAGE_SELECTION": "Language selection",
     "LANGUAGES": {
       "ENGLISH": "English",
       "FRENCH" : "French"
@@ -73,7 +73,7 @@
         "TITLE"  : "Transaction removal",
         "BODY"   : "Are you sure you want to remove this transaction?",
         "CANCEL" : "@:CANCEL",
-        "OK": "@:CONFIRM"
+        "OK"     : "@:CONFIRM"
       }
     }
   }

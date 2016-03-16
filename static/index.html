@@ -28,9 +28,13 @@
         </li>
       </ul>
       <ul class="nav navbar-right top-nav">
-        <li class="dropdown" tooltip-placement="bottom" uib-tooltip="{{'NAV.LANGUAGE_TOOLTIP'|translate}}">
+        <li class="dropdown">
           <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-flag"></i> <b class="caret"></b></a>
           <ul class="dropdown-menu alert-dropdown">
+            <li>
+              <a>{{'NAV.LANGUAGE_SELECTION'|translate}}</a>
+            </li>
+            <li class="divider"></li>
             <li>
               <a ng-click="selectLocale('en_US')"><i ng-class="{'fa-check': currentLocale === 'en_US'}" class="fa fa-fw "></i> {{'NAV.LANGUAGES.ENGLISH'|translate}}</a>
             </li>
