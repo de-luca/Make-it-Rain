@@ -5,8 +5,8 @@
   "ADD"    : "Add",
 
   "NAV": {
-    "BACK_TOOLTIP" : "Back to account list",
-    "LANGUAGE_TOOLTIP"  : "Language selection",
+    "BACK_TOOLTIP"      : "Back to account list",
+    "LANGUAGE_SELECTION": "Language selection",
     "LANGUAGES": {
       "ENGLISH": "English",
       "FRENCH" : "French"
@@ -55,11 +55,12 @@
       "INIT"   : "Initial balance"
     },
     "REFINE": {
-      "AVERAGE"   : "Average",
-      "MIN"       : "Min",
-      "MAX"       : "Max",
-      "DATE_FROM" : "Date from...",
-      "DATE_TO"   : "Date to..."
+      "TOGGLE_BUTTON": "Toggle filters",
+      "AVERAGE"      : "Average",
+      "MIN"          : "Min",
+      "MAX"          : "Max",
+      "DATE_FROM"    : "Date from...",
+      "DATE_TO"      : "Date to..."
     },
     "CONFIG": {
       "HELP_TEXT"         : "You can adjust warning thresholds for this account by indicating each of them.",
@@ -72,7 +73,7 @@
         "TITLE"  : "Transaction removal",
         "BODY"   : "Are you sure you want to remove this transaction?",
         "CANCEL" : "@:CANCEL",
-        "OK": "@:CONFIRM"
+        "OK"     : "@:CONFIRM"
       }
     }
   }

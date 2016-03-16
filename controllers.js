@@ -146,90 +146,31 @@ angular.module('mirCtrls', [])
 .controller('accountHistoryCtrl', function($scope, $uibModal) {
   $scope.predicate = 'date';
   $scope.reverse = true;
-  $scope.newMove = {
-    date  : new Date(),
-    amount: undefined
-  };
 
   $scope.order = (predicate) => {
     $scope.predicate = predicate;
     $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : true;
   };
 
-  $scope.valid = () => {
-    return (
-      !$scope.newMove.date ||
-      !$scope.newMove.amount ||
-      !(!isNaN(parseFloat($scope.newMove.amount)) && isFinite($scope.newMove.amount))
-    );
-  };
-
-  $scope.insert = () => {
-    $scope.newMove.amount = parseFloat($scope.newMove.amount);
-    let proceed = _.after(3, () => {
-      $scope.$parent.getData().then((data) => {
-        $scope.$parent.account   = data.acc;
-        $scope.$parent.posts     = data.posts;
-        $scope.$parent.companies = data.comps;
-        $scope.newMove = {
-          date  : new Date(),
-          amount: undefined
-        };
-      }, (err) => {
-        console.warn(err);
-        throw err;
-      });
-    });
-
-    db.update({_id: $scope.$parent.account._id}, {$push: {moves: $scope.newMove}, $inc: {balance: $scope.newMove.amount}}, {}, () => {
-      proceed();
-    });
-
-    if($scope.newMove.post) {
-      db.update({_obj: 'post_list'}, {$addToSet: {list: $scope.newMove.post}}, {}, () => {
-        proceed();
-      });
-    } else {
-      proceed();
-    }
-
-    if($scope.newMove.post) {
-      db.update({_obj: 'company_list'}, {$addToSet: {list: $scope.newMove.company}}, {}, () => {
-        proceed();
-      });
-    } else {
-      proceed();
-    }
-  };
-
-  $scope.remove = (id) => {
-    var modalInstance = $uibModal.open({
-      animation: true,
-      templateUrl: 'deleteModal.html',
-      controller: 'deleteModalCtrl'
-    });
-    modalInstance.result.then(() => {
-      delete id.$$hashKey;
-      db.update({_id: $scope.$parent.account._id}, {$inc: {balance: -id.amount}, $pull: {moves: id}}, {returnUpdatedDocs: true}, (err, num, up) => {
-        $scope.$parent.account = up;
-        $scope.$apply();
-      });
-    });
-  };
-})
-
-.controller('accountRefineCtrl', function($scope) {
   $scope.results = [];
-  $scope.refine = {
+  $scope.refiner = false;
+  var oldRefine = $scope.refine = {
     post: [],
     company: []
   };
 
-  $scope.order = (predicate) => {
-    $scope.predicate = predicate;
-    $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : true;
+  $scope.toggleRefiner = () => {
+    $scope.refiner = !$scope.refiner;
+    if($scope.refiner)
+      $scope.refine = oldRefine;
+    else {
+      oldRefine = $scope.refine;
+      $scope.refine = {
+        post: [],
+        company: []
+      };
+    }
   };
-
   $scope.refinePost = (name) => {
     let index;
     if((index = $scope.refine.post.indexOf(name)) > -1)
@@ -266,6 +207,71 @@ angular.module('mirCtrls', [])
     });
     return max;
   };
+
+
+  $scope.newMove = {
+    date  : undefined,
+    amount: undefined
+  };
+
+  $scope.valid = () => {
+    return (
+      !$scope.newMove.date ||
+      !$scope.newMove.amount ||
+      !(!isNaN(parseFloat($scope.newMove.amount)) && isFinite($scope.newMove.amount))
+    );
+  };
+  $scope.insert = () => {
+    $scope.newMove.amount = parseFloat($scope.newMove.amount);
+    let proceed = _.after(3, () => {
+      $scope.$parent.getData().then((data) => {
+        $scope.$parent.account   = data.acc;
+        $scope.$parent.posts     = data.posts;
+        $scope.$parent.companies = data.comps;
+        $scope.newMove = {
+          date  : undefined,
+          amount: undefined
+        };
+      }, (err) => {
+        console.warn(err);
+        throw err;
+      });
+    });
+
+    db.update({_id: $scope.$parent.account._id}, {$push: {moves: $scope.newMove}, $inc: {balance: $scope.newMove.amount}}, {}, () => {
+      proceed();
+    });
+
+    if($scope.newMove.post) {
+      db.update({_obj: 'post_list'}, {$addToSet: {list: $scope.newMove.post}}, {}, () => {
+        proceed();
+      });
+    } else {
+      proceed();
+    }
+
+    if($scope.newMove.post) {
+      db.update({_obj: 'company_list'}, {$addToSet: {list: $scope.newMove.company}}, {}, () => {
+        proceed();
+      });
+    } else {
+      proceed();
+    }
+  };
+  $scope.remove = (id) => {
+    var modalInstance = $uibModal.open({
+      animation: true,
+      templateUrl: 'deleteModal.html',
+      controller: 'deleteModalCtrl'
+    });
+    modalInstance.result.then(() => {
+      delete id.$$hashKey;
+      db.update({_id: $scope.$parent.account._id}, {$inc: {balance: -id.amount}, $pull: {moves: id}}, {returnUpdatedDocs: true}, (err, num, up) => {
+        $scope.$parent.account = up;
+        $scope.$apply();
+      });
+    });
+  };
 })
 .controller('accountConfigCtrl', function($scope) {
   $scope.updateTS = (valid) => {
@@ -296,7 +302,9 @@ angular.module('mirCtrls', [])
 
 .controller('topBarCtrl', function($scope, $route, $translate) {
   $scope.route = $route;
-  $scope.currentLocale = $translate.use();
+  $translate.onReady(() => {
+    $scope.currentLocale = $translate.proposedLanguage();
+  });
   $scope.selectLocale = (locale) => {
     $translate.use(locale);
     $scope.currentLocale = locale;

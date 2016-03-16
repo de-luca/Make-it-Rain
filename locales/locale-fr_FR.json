@@ -5,8 +5,8 @@
   "ADD"    : "Ajouter",
 
   "NAV": {
-    "BACK_TOOLTIP" : "Retour à la liste des comptes",
-    "LANGUAGE_TOOLTIP"  : "Selection de la langue",
+    "BACK_TOOLTIP"      : "Retour à la liste des comptes",
+    "LANGUAGE_SELECTION": "Selection de la langue",
     "LANGUAGES": {
       "ENGLISH": "Anglais",
       "FRENCH" : "Français"
@@ -55,11 +55,12 @@
       "INIT"   : "Solde initial"
     },
     "REFINE": {
-      "AVERAGE"   : "Moyenne",
-      "MIN"       : "Min",
-      "MAX"       : "Max",
-      "DATE_FROM" : "Du...",
-      "DATE_TO"   : "Au..."
+      "TOGGLE_BUTTON": "Afficher/Cacher filtres",
+      "AVERAGE"      : "Moyenne",
+      "MIN"          : "Min",
+      "MAX"          : "Max",
+      "DATE_FROM"    : "Du...",
+      "DATE_TO"      : "Au..."
     },
     "CONFIG": {
       "HELP_TEXT"         : "Vous pouvez ajuster les paliers d'avertissement de ce compte en les paramétrant.",
@@ -72,7 +73,7 @@
         "TITLE"  : "Suppression d'opération",
         "BODY"   : "Etes-vous sûr de vouloir supprimer cette opération ?",
         "CANCEL" : "@:CANCEL",
-        "OK": "@:CONFIRM"
+        "OK"     : "@:CONFIRM"
       }
     }
   }
