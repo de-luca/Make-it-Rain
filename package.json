@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "electron ./",
-    "build": "electron-packager . $npm_package_productName --out=./dist --overwrite --ignore='^/db$' --ignore='^/dist$' --app-version=$npm_package_version $npm_package_config_platform $npm_package_config_version",
+    "build": "electron-packager . $npm_package_productName --asar --out=./dist --overwrite --ignore='^/db$' --ignore='^/dist$' --app-version=$npm_package_version $npm_package_config_platform $npm_package_config_version",
     "package": "cd dist && zip -ryXq9 ${npm_package_productName}-darwin-x64-${npm_package_version}.zip ${npm_package_productName}-darwin-x64/${npm_package_productName}.app && tar czvf ${npm_package_productName}-linux-x64-${npm_package_version}.tar.gz ${npm_package_productName}-linux-x64 && zip -ryXq9 ${npm_package_productName}-win32-x64-${npm_package_version}.zip ${npm_package_productName}-win32-x64"
   },
   "files": [
@@ -42,6 +42,7 @@
     "angular-ui-bootstrap": "^0.14.3",
     "bootstrap": "^3.3.6",
     "electron-window-state": "^2.0.0",
+    "exists-file": "^1.0.0",
     "font-awesome": "^4.5.0",
     "jquery": "^2.1.4",
     "nedb": "^1.8.0",
