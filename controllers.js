@@ -1,8 +1,10 @@
 'use strict';
 
+const remote = require('remote');
+const app = remote.require('app');
 const Datastore = require('nedb');
 let db = new Datastore({
-  filename: __dirname+'/../db/mir',
+  filename: app.getPath('userData')+'/db/mir',
   autoload: true
 });
 

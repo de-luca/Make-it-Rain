@@ -3,6 +3,12 @@
 const app = require('app');
 const windowStateKeeper = require('electron-window-state');
 const BrowserWindow = require('browser-window');
+const fs = require('fs');
+const exists = require('exists-file');
+
+if(exists(app.getPath('userData')+'/db/mir'))
+  fs.createReadStream(app.getPath('userData')+'/db/mir')
+    .pipe(fs.createWriteStream(app.getPath('userData')+'/db/mir_old'));
 
 let win;
 
