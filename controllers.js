@@ -38,10 +38,13 @@ angular.module('mirCtrls', [])
     init: undefined
   };
 
+  $scope.currencies = ['EUR', 'GBP', 'USD', 'CHF'];
+
   $scope.valid = () => {
     return (
       !$scope.newAccount.name ||
       !$scope.newAccount.init ||
+      !$scope.newAccount.currency ||
       !(!isNaN(parseFloat($scope.newAccount.init)) && isFinite($scope.newAccount.init))
     );
   };
@@ -51,6 +54,8 @@ angular.module('mirCtrls', [])
       name: $scope.newAccount.name,
       init: parseFloat($scope.newAccount.init),
       balance: parseFloat($scope.newAccount.init),
+      currency: $scope.newAccount.currency,
+      created_on: new Date(),
       thresholds: {
         critical: 0,
         warning: 500,
@@ -62,7 +67,8 @@ angular.module('mirCtrls', [])
       $scope.new = false;
       $scope.newAccount = {
         name: undefined,
-        init: undefined
+        init: undefined,
+        currency: undefined
       };
       getData().then((docs) => {
         $scope.accounts = docs;
