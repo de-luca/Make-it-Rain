@@ -2,19 +2,20 @@
 
 const remote = require('remote');
 const app = remote.require('app');
+const crypto = require('crypto');
 const Datastore = require('nedb');
-let db = new Datastore({
-  filename: app.getPath('userData')+'/db/mir',
+
+let accountsDB = new Datastore({
+  filename: app.getPath('userData')+'/db/accounts',
   autoload: true
 });
-
-db.findOne({_obj: 'post_list'}, (err, posts) => {
-  if(!posts)
-    db.insert({_obj: "post_list", list: []});
+let postsDB = new Datastore({
+  filename: app.getPath('userData')+'/db/posts',
+  autoload: true
 });
-db.findOne({_obj: 'company_list'}, (err, comps) => {
-  if(!comps)
-    db.insert({_obj: "company_list", list: []});
+let companiesDB = new Datastore({
+  filename: app.getPath('userData')+'/db/companies',
+  autoload: true
 });
 
 angular.module('mirCtrls', [])
@@ -22,7 +23,7 @@ angular.module('mirCtrls', [])
 .controller('overviewCtrl', function($scope, $q, $uibModal) {
   let getData = () => {
     return $q((resolve, reject) => {
-      db.find({_obj: "account"}, (error, docs) => {
+      accountsDB.find({}, (error, docs) => {
         resolve(docs);
       });
     });
@@ -37,21 +38,24 @@ angular.module('mirCtrls', [])
     init: undefined
   };
 
+  $scope.currencies = ['EUR', 'GBP', 'USD', 'CHF'];
+
   $scope.valid = () => {
     return (
       !$scope.newAccount.name ||
       !$scope.newAccount.init ||
+      !$scope.newAccount.currency ||
       !(!isNaN(parseFloat($scope.newAccount.init)) && isFinite($scope.newAccount.init))
     );
   };
 
   $scope.insert = () => {
     let acc = {
-      _id: undefined,
-      _obj: 'account',
       name: $scope.newAccount.name,
       init: parseFloat($scope.newAccount.init),
       balance: parseFloat($scope.newAccount.init),
+      currency: $scope.newAccount.currency,
+      created_on: new Date(),
       thresholds: {
         critical: 0,
         warning: 500,
@@ -59,11 +63,12 @@ angular.module('mirCtrls', [])
       },
       moves: []
     };
-    db.insert(acc, (err, inserted) => {
+    accountsDB.insert(acc, (err, inserted) => {
       $scope.new = false;
       $scope.newAccount = {
         name: undefined,
-        init: undefined
+        init: undefined,
+        currency: undefined
       };
       getData().then((docs) => {
         $scope.accounts = docs;
@@ -81,7 +86,7 @@ angular.module('mirCtrls', [])
       controller: 'editModalCtrl'
     });
     modalInstance.result.then((obj) => {
-      db.update({_id: id}, {$set: {name: obj.newName}}, {}, (err, numReplaced) => {
+      accountsDB.update({_id: id}, {$set: {name: obj.newName}}, {}, (err, numReplaced) => {
         getData().then((docs) => {
           $scope.accounts = docs;
         }, (err) => {
@@ -99,7 +104,7 @@ angular.module('mirCtrls', [])
       controller: 'deleteModalCtrl'
     });
     modalInstance.result.then(() => {
-      db.remove({_id: id}, {multi: true} ,(err) => {
+      accountsDB.remove({_id: id}, {multi: true} ,(err) => {
         getData().then((docs) => {
           $scope.accounts = docs;
         }, (err) => {
@@ -120,22 +125,23 @@ angular.module('mirCtrls', [])
         resolve(data);
       });
 
-      db.findOne({_id: $routeParams.id}, (err, acc) => {
+      accountsDB.findOne({_id: $routeParams.id}, (err, acc) => {
         data.acc = acc;
         proceed();
       });
-      db.findOne({_obj: 'post_list'}, (err, posts) => {
-        data.posts = posts.list;
+      postsDB.find({}, (err, posts) => {
+        data.posts = posts;
         proceed();
       });
-      db.findOne({_obj: 'company_list'}, (err, comps) => {
-        data.comps = comps.list;
+      companiesDB.find({}, (err, comps) => {
+        data.comps = comps;
         proceed();
       });
     });
   };
 
   $scope.getData().then((data) => {
+    console.log(data);
     $scope.account   = data.acc;
     $scope.posts     = data.posts;
     $scope.companies = data.comps;
@@ -225,6 +231,7 @@ angular.module('mirCtrls', [])
   };
   $scope.insert = () => {
     $scope.newMove.amount = parseFloat($scope.newMove.amount);
+    $scope.newMove._id = crypto.randomBytes(8).toString('hex');
     let proceed = _.after(3, () => {
       $scope.$parent.getData().then((data) => {
         $scope.$parent.account   = data.acc;
@@ -240,12 +247,12 @@ angular.module('mirCtrls', [])
       });
     });
 
-    db.update({_id: $scope.$parent.account._id}, {$push: {moves: $scope.newMove}, $inc: {balance: $scope.newMove.amount}}, {}, () => {
+    accountsDB.update({_id: $scope.$parent.account._id}, {$push: {moves: $scope.newMove}, $inc: {balance: $scope.newMove.amount}}, {}, () => {
       proceed();
     });
 
     if($scope.newMove.post) {
-      db.update({_obj: 'post_list'}, {$addToSet: {list: $scope.newMove.post}}, {}, () => {
+      postsDB.insert({_id: $scope.newMove.post}, () => {
         proceed();
       });
     } else {
@@ -253,7 +260,7 @@ angular.module('mirCtrls', [])
     }
 
     if($scope.newMove.post) {
-      db.update({_obj: 'company_list'}, {$addToSet: {list: $scope.newMove.company}}, {}, () => {
+      companiesDB.insert({_id: $scope.newMove.company}, () => {
         proceed();
       });
     } else {
@@ -268,7 +275,7 @@ angular.module('mirCtrls', [])
     });
     modalInstance.result.then(() => {
       delete id.$$hashKey;
-      db.update({_id: $scope.$parent.account._id}, {$inc: {balance: -id.amount}, $pull: {moves: id}}, {returnUpdatedDocs: true}, (err, num, up) => {
+      accountsDB.update({_id: $scope.$parent.account._id}, {$inc: {balance: -id.amount}, $pull: {moves: id}}, {returnUpdatedDocs: true}, (err, num, up) => {
         $scope.$parent.account = up;
         $scope.$apply();
       });
@@ -278,7 +285,7 @@ angular.module('mirCtrls', [])
 .controller('accountConfigCtrl', function($scope) {
   $scope.updateTS = (valid) => {
     if(valid) {
-      db.update({_id: $scope.$parent.account._id}, {$set: {thresholds: $scope.$parent.account.thresholds}});
+      accountsDB.update({_id: $scope.$parent.account._id}, {$set: {thresholds: $scope.$parent.account.thresholds}});
     }
   };
 })

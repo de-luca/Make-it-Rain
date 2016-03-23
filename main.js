@@ -6,9 +6,15 @@ const BrowserWindow = require('browser-window');
 const fs = require('fs');
 const exists = require('exists-file');
 
-if(exists(app.getPath('userData')+'/db/mir'))
-  fs.createReadStream(app.getPath('userData')+'/db/mir')
-    .pipe(fs.createWriteStream(app.getPath('userData')+'/db/mir_old'));
+if(exists(app.getPath('userData')+'/db/accounts'))
+  fs.createReadStream(app.getPath('userData')+'/db/accounts')
+    .pipe(fs.createWriteStream(app.getPath('userData')+'/db/accounts_old'));
+if(exists(app.getPath('userData')+'/db/posts'))
+  fs.createReadStream(app.getPath('userData')+'/db/posts')
+    .pipe(fs.createWriteStream(app.getPath('userData')+'/db/posts_old'));
+if(exists(app.getPath('userData')+'/db/companies'))
+  fs.createReadStream(app.getPath('userData')+'/db/companies')
+    .pipe(fs.createWriteStream(app.getPath('userData')+'/db/companies_old'));
 
 let win;
 
