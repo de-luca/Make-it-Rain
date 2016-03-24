@@ -56,6 +56,7 @@
     },
     "REFINE": {
       "TOGGLE_BUTTON": "Toggle filters",
+      "SUM"          : "Sum",
       "AVERAGE"      : "Average",
       "MIN"          : "Min",
       "MAX"          : "Max",

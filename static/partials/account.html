@@ -69,19 +69,25 @@
     </div>
     <div ng-class="{'col-xs-12': !refiner, 'col-xs-10': refiner}">
       <div class="row text-center" ng-show="refiner">
-        <div class="col-xs-4">
+        <div class="col-xs-3">
+          <p class="well well-sm">
+            <strong>{{'ACCOUNT.REFINE.SUM'|translate}}</strong><br>
+            {{sum(results)|currency:''}} {{account.currency}}
+          </p>
+        </div>
+        <div class="col-xs-3">
           <p class="well well-sm">
             <strong>{{'ACCOUNT.REFINE.AVERAGE'|translate}}</strong><br>
             {{avg(results)|currency:''}} {{account.currency}}
           </p>
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-3">
           <p class="well well-sm">
             <strong>{{'ACCOUNT.REFINE.MIN'|translate}}</strong><br>
             {{min(results)|currency:''}} {{account.currency}}
           </p>
         </div>
-        <div class="col-xs-4">
+        <div class="col-xs-3">
           <p class="well well-sm">
             <strong>{{'ACCOUNT.REFINE.MAX'|translate}}</strong><br>
             {{max(results)|currency:''}} {{account.currency}}

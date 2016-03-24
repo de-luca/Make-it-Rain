@@ -141,7 +141,6 @@ angular.module('mirCtrls', [])
   };
 
   $scope.getData().then((data) => {
-    console.log(data);
     $scope.account   = data.acc;
     $scope.posts     = data.posts;
     $scope.companies = data.comps;
@@ -194,6 +193,13 @@ angular.module('mirCtrls', [])
       $scope.refine.company.push(name);
   };
 
+  $scope.sum = (items) => {
+    let sum = 0;
+    items.forEach((item) => {
+      sum += item.amount;
+    });
+    return sum;
+  };
   $scope.avg = (items) => {
     let avg = 0;
     items.forEach((item) => {
