@@ -19,9 +19,10 @@
     "EDIT"       : "Editer",
     "REMOVE"     : "@:REMOVE",
     "FORM": {
-      "NAME"  : "Nom",
-      "INIT"  : "Solde initial",
-      "SUBMIT": "@:ADD"
+      "NAME"    : "Nom",
+      "INIT"    : "Solde initial",
+      "CURRENCY": "Choisissez la monnaie",
+      "SUBMIT"  : "@:ADD"
     },
     "MODAL": {
       "EDIT": {
