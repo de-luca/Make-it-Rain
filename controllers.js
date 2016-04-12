@@ -201,21 +201,17 @@ angular.module('mirCtrls', [])
     return sum;
   };
   $scope.avg = (items) => {
-    let avg = 0;
-    items.forEach((item) => {
-      avg += item.amount;
-    });
-    return Math.round((avg/items.length) *100)/100;
+    return (items.length === 0) ? 0 : Math.round(($scope.sum(items)/items.length) *100)/100;
   };
   $scope.min = (items) => {
-    let min;
+    let min = 0;
     items.forEach((item) => {
       min = (!min || min > item.amount) ? item.amount : min;
     });
     return min;
   };
   $scope.max = (items) => {
-    let max;
+    let max = 0;
     items.forEach((item) => {
       max = (!max || max < item.amount) ? item.amount : max;
     });
